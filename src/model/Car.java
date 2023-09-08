@@ -1,5 +1,10 @@
 package model;
 
+import java.awt.Image;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+
 public class Car {
     private int num;
 	private String mark;
@@ -18,10 +23,10 @@ public class Car {
 
 	private int reliability; //Determina qu� tan confiable es el auto: A menor valor de este atributo, 
     //mayores probabilidades de que vaya a abandonar 	durante la carrera por desperfectos mec�nicos
-
+	private ImageIcon image;
 	
 	public Car(int num, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
-			Tires tires, int overtakingperformance, int corneringperformance, int reliability) {
+			Tires tires, int overtakingperformance, int corneringperformance, int reliability,ImageIcon image) {
 		super();
 		this.num = num;
 		this.mark = mark;
@@ -34,6 +39,7 @@ public class Car {
 		this.overtakingperformance = overtakingperformance;
 		this.corneringperformance = corneringperformance;
 		this.reliability = reliability;
+		this.image = image;
 	}
 
 	public int getNum() {
@@ -131,4 +137,13 @@ public class Car {
 	public void setReliability(int reliability) {
 		this.reliability = reliability;
 	}
+
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
+	}
+	
 }
