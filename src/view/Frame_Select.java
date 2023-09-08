@@ -61,6 +61,7 @@ public class Frame_Select extends Frame_Basic {
         }        
         JButton btnBack = new JButton("Volver");
         btnBack.setPreferredSize(new Dimension(120, 40));
+        southPanel.setBackground(Color.DARK_GRAY);
         southPanel.add(btnBack);
         add(topPanel, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);

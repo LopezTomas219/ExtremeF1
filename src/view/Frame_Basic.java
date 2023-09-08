@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import controller.Championship;
+
 public class Frame_Basic extends JFrame{
     
     public static void main(String[] args) {
@@ -19,6 +21,7 @@ public class Frame_Basic extends JFrame{
 			}
 		});
 	}
+	private Championship controller;
 
     public Frame_Basic(){
         setTitle("Extreme F1");
@@ -27,5 +30,9 @@ public class Frame_Basic extends JFrame{
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/images/Icono.png"));
         setIconImage(icon.getImage());
 		
+		
     }
+	public void setController(Championship controller){
+		this.controller= controller;
+	}
 }
