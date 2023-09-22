@@ -10,11 +10,14 @@ public class Race {
     private Circuit circuit;
     private List<Laps> ListLaps = new ArrayList<>();
     private List<Player> ListPlayers = new ArrayList<>();
+    private List<Car> ListCars;
+    public static final boolean CONTINUE = true;
 
-    public Race(Date date,Circuit circuit){
+    public Race(Date date,Circuit circuit, List<Car> ListCars){
 
         this.date=date;
         this.circuit=circuit;
+        this.ListCars = ListCars;
 
     }
     
@@ -23,7 +26,36 @@ public class Race {
     }
     private void RunRace(){
 
-        //Ver hilos
+        List <Thread> carThreads = new ArrayList<>();
+    	
+    	for (Car car : ListCars) {
+    		Thread carThread = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					while (CONTINUE) {
+						car.move();
+						try {
+							Thread.sleep((int) (Math.random() * 1000));
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+    			
+    		});
+    		carThreads.add(carThread);
+    		carThread.start();
     }
+    	
+    for (Thread thread : carThreads) {
+    	try {
+    		thread.join();
+    	} catch (InterruptedException e) {
+    		e.printStackTrace();
+    	}
+    }	
+}
 
 }

@@ -9,7 +9,7 @@ public class Pilot {
 	private int quantitychampions;
 	private int quantitychampionswin;
 	private int quantitypolepositions;
-	//private String budget; // PRESUPUESTO ALTO , MEDIO , BAJO 
+	private int budget; // PRESUPUESTO ALTO , MEDIO , BAJO 
 	
 	
 	//Caractersiticas del piloto Cada piloto consta de valores entre 1 al 100 a mayor valor mejor deempe�o
@@ -34,6 +34,9 @@ public class Pilot {
 		this.ranking = ranking;
 		this.tirecare = tirecare;
 		this.start = start;
+	}
+	public Pilot() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getNamepilot() {
@@ -140,6 +143,13 @@ public class Pilot {
 
 	public void setStart(int start) {
 		this.start = start;
+	}
+	public int getBudget() {
+		return budget;
+	}
+
+	public void setBudget(int budget) {
+		this.budget = budget;
 	}
 
     @Override

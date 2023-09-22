@@ -27,6 +27,9 @@ public class Circuit {
 		this.numberovertaking = numberovertaking;
 		this.numbercurves = numbercurves;
 	}
+	public Circuit() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getNamecircuit() {
 		return namecircuit;
 	}

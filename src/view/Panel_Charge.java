@@ -22,7 +22,7 @@ public class Panel_Charge extends JPanel {
     private Image backgroundImage;
     private JButton btnBack;
     public Panel_Charge() {
-        backgroundImage = new ImageIcon("src/resources/images/F1.jpeg").getImage();
+        backgroundImage = new ImageIcon("src/resources/images/Background.png").getImage();
         setLayout(new BorderLayout());
 
         JPanel main_Panel = new JPanel() {
@@ -34,16 +34,11 @@ public class Panel_Charge extends JPanel {
         };
         main_Panel.setLayout(new BoxLayout(main_Panel, BoxLayout.Y_AXIS));
 
-        // Panel del Título
-        JPanel titlePanel = new JPanel();
-        titlePanel.setOpaque(false);
-        JLabel titleLabel = new JLabel("Extreme F1");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        Font titleFont = new Font("Arial", Font.ITALIC, 45);
-        titleLabel.setFont(titleFont);
-        titleLabel.setForeground(Color.BLACK);
-        titlePanel.add(titleLabel);
-        
+        JPanel spacer = new JPanel();
+        spacer.setPreferredSize(new Dimension(main_Panel.getWidth(), 20));
+        spacer.setOpaque(false);
+        main_Panel.add(spacer);
+        Dimension btnSize = new Dimension(150, 50);
         
 
         // Panel de Botones
@@ -67,7 +62,6 @@ public class Panel_Charge extends JPanel {
         backPanel.add(btnBack);
         // Agregar todos los paneles a main_Panel
         main_Panel.add(Box.createVerticalGlue());
-        main_Panel.add(titlePanel);
         main_Panel.add(buttonPanel);
         main_Panel.add(backPanel);
         main_Panel.add(Box.createVerticalGlue());
