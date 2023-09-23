@@ -1,6 +1,6 @@
 package model;
 
-public class Player {
+public class Player implements Comparable<Player>{
 
 private String name;
 private String color ;
@@ -55,7 +55,10 @@ public Car getCar() {
 public void setCar(Car car) {
 	this.car = car;
 }
-
+@Override
+public int compareTo(Player other) {
+	return this.name.compareTo(other.name);
+}
 
 @Override
 public String toString() {

@@ -3,6 +3,8 @@ package controller;
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -44,7 +46,7 @@ public class Championship {
     ChargeXML();
     CreateRaces();
     }
-    
+    /*--------------------------------Pilotos-----------------------------------------------------------------------------*/
     public List<Pilot> getListPilots() {
         return ListPilots;
     }
@@ -52,15 +54,15 @@ public class Championship {
     public void setListPilots(List<Pilot> listPilots) {
         ListPilots = listPilots;
     }
-
+    /*-------------------------------------Autos------------------------------------------------------------------------*/
     public List<Car> getListCars() {
         return ListCars;
     }
 
     public void setListCars(List<Car> listCars) {
         ListCars = listCars;
-    }
-
+    }   
+    /*----------------------------------------Jugadores---------------------------------------------------------------------*/
     public List<Player> getListPlayers() {
         return ListPlayers;
     }
@@ -69,6 +71,12 @@ public class Championship {
         ListPlayers = listPlayers;
     }
 
+    public void CreatePlayer(String name, String color, Pilot pilot, Car car){
+        PlayerReal player = new PlayerReal(name, color, pilot, car);
+        ListPlayers.add(player);
+        Collections.sort(ListPlayers);
+    }
+    /*------------------------------------------------Circuitos-------------------------------------------------------------*/
     public List<Circuit> getListCircuits() {
         return ListCircuits;
     }
@@ -76,7 +84,7 @@ public class Championship {
     public void setListCircuits(List<Circuit> listCircuits) {
         ListCircuits = listCircuits;
     }
-
+    /*-------------------------------------------------------------------------------------------------------------*/
     private void CreateRaces(){
         //Se crean las carreras usando la lista de circuitos ,con las fechas del cronograma.
     }

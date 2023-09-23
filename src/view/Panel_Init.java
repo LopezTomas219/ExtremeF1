@@ -24,7 +24,9 @@ import javax.swing.SwingConstants;
 public class Panel_Init extends JPanel {
     
     private Image backgroundImage;
-    private JButton btnCharge;
+    private NeonRoundedButton btnStart;
+    private NeonRoundedButton btnCharge;
+    private NeonRoundedButton btnClose;
     public Panel_Init(){
 
 
@@ -50,83 +52,48 @@ public class Panel_Init extends JPanel {
         
         //-------------------------------------------------------------------
         JPanel spacer = new JPanel();
-        spacer.setPreferredSize(new Dimension(init_panel.getWidth(), 50));
+        spacer.setPreferredSize(new Dimension(init_panel.getWidth(), 75));
         spacer.setOpaque(false);
         init_panel.add(spacer);
-        Dimension btnSize = new Dimension(150, 50);
+        JPanel spacer2= new JPanel();
+        spacer2.setPreferredSize(new Dimension(init_panel.getWidth(), 75));
+        spacer2.setOpaque(false);
+        init_panel.add(spacer2);
 
         //-------------------------------------------------------------------
-        ImageIcon iconImagen = new ImageIcon("src/resources/images/btnIniciar.png");
-        JButton btnStart = new JButton() {
-            private Shape shape;
+        Dimension btnSize = new Dimension(170, 50);
         
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-                // Dibuja el fondo redondeado
-                if (getModel().isPressed()) {
-                    g2.setColor(Color.LIGHT_GRAY);
-                } else {
-                    g2.setColor(getBackground());
-                }
-                g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-                
-                // Dibuja la imagen
-                g2.drawImage(iconImagen.getImage(), (getWidth() - iconImagen.getIconWidth()) / 2, (getHeight() - iconImagen.getIconHeight()) / 2, this);
-        
-                super.paintComponent(g);
-            }
-        
-            @Override
-            protected void paintBorder(Graphics g) {
-                g.setColor(getForeground());
-                g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-            }
-        
-            @Override
-            public boolean contains(int x, int y) {
-                if (shape == null || !shape.getBounds().equals(getBounds())) {
-                    shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-                }
-                return shape.contains(x, y);
-            }
-        };
-        
-        btnStart.setContentAreaFilled(false);
-        btnStart.setBorderPainted(false);
-        btnStart.setFocusPainted(false);
-        btnStart.setBackground(Color.decode("#00EF00")); // Color de fondo
-        btnStart.setForeground(Color.WHITE); // Color del texto y del borde
-        btnStart.setFocusable(false);
-        btnStart.setPreferredSize(new Dimension(iconImagen.getIconWidth(), iconImagen.getIconHeight()));
-        
-       
-        
+        btnStart = new NeonRoundedButton("Iniciar");
+        btnStart.setNeonColor(Color.decode("#00EF00"));
+        btnStart.setPreferredSize(btnSize);
+          
         JPanel buttonWrapper_Start = new JPanel();
         buttonWrapper_Start.setLayout(new FlowLayout());
         buttonWrapper_Start.setOpaque(false);
         buttonWrapper_Start.add(btnStart);
         
         //-------------------------------------------------------------------
-        btnCharge = new JButton("Cargar partida");
+        btnCharge = new NeonRoundedButton("Cargar partida");
+        btnCharge.setNeonColor(Color.decode("#F8E600"));
         btnCharge.setPreferredSize(btnSize);
+        
         JPanel buttonWrapper_Charge = new JPanel();
         buttonWrapper_Charge.setLayout(new FlowLayout());
         buttonWrapper_Charge.setOpaque(false);
         buttonWrapper_Charge.add(btnCharge);
 
         //-------------------------------------------------------------------       
-        JButton btnClose = new JButton("Salir");
+        btnClose = new NeonRoundedButton("Salir");
+        btnClose.setNeonColor(Color.decode("#DD0000"));
         btnClose.setPreferredSize(btnSize);
-        JPanel buttonWrapper_Options = new JPanel();
-        buttonWrapper_Options.setLayout(new FlowLayout());
-        buttonWrapper_Options.setOpaque(false);
-        buttonWrapper_Options.add(btnClose);
+        
+        JPanel buttonWrapper_Close = new JPanel();
+        buttonWrapper_Close.setLayout(new FlowLayout());
+        buttonWrapper_Close.setOpaque(false);
+        buttonWrapper_Close.add(btnClose);
         init_panel.add(buttonWrapper_Start);
         init_panel.add(buttonWrapper_Charge);
-        init_panel.add(buttonWrapper_Options);
+        init_panel.add(buttonWrapper_Close);
 
 
         //-------------------------------------------------------------------
