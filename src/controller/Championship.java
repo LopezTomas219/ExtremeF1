@@ -3,24 +3,19 @@ package controller;
 import java.sql.Date;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
-
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import model.*;
+import view.Frame_Create;
 import view.Frame_Init;
 
 public class Championship {
@@ -32,7 +27,11 @@ public class Championship {
     private List<Race> ListRace = new ArrayList<>();
     private List<Date> ListDate = new ArrayList<>();
     private List <Country> ListCountries = new ArrayList<>();
-    private Frame_Init frame_Init;
+    private String nameGame;
+    private int numberPlayers;
+    private Frame_Init frame_init;
+    private Frame_Create frame_create;
+    
 
     public Championship(){
 
@@ -85,14 +84,22 @@ public class Championship {
         ListCircuits = listCircuits;
     }
     /*-------------------------------------------------------------------------------------------------------------*/
+     public String getNameGame() {
+        return nameGame;
+    }
+    public void setNameGame(String nameGame) {
+        this.nameGame = nameGame;
+    }
+    
     private void CreateRaces(){
         //Se crean las carreras usando la lista de circuitos ,con las fechas del cronograma.
     }
+   
     private void ChargeXML(){
         //Carga los pilotos,autos ,circuitos y fechas.
     	// LEE AUTOS
         try {
-            File inputFile = new File("autos.xml");
+            File inputFile = new File("src/resources/files/autos.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -114,7 +121,7 @@ public class Championship {
                     car.setPower(Float.parseFloat(carElement.getElementsByTagName("potencia").item(0).getTextContent()));
                     car.setFuelconsum(Float.parseFloat(carElement.getElementsByTagName("consumo").item(0).getTextContent()));
                     car.setMark(carElement.getElementsByTagName("marca").item(0).getTextContent());
-                    car.setNum(Integer.parseInt(carElement.getElementsByTagName("modelo").item(0).getTextContent()));
+                    car.setModel(carElement.getElementsByTagName("modelo").item(0).getTextContent());
                     ListCars.add(car);
                 }
             }
@@ -125,7 +132,7 @@ public class Championship {
         }
         // LEE CIRCUITOS
         try {
-        	File inputFile = new File ("circuitos.xml");
+        	File inputFile = new File ("src/resources/files/circuitos.xml");
         	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         	Document doc = dBuilder.parse(inputFile);
@@ -157,7 +164,7 @@ public class Championship {
         
         //LEE PAISES
         try {
-        	File inputFile = new File ("paises.xml");
+        	File inputFile = new File ("src/resources/files/paises.xml");
         	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         	Document doc = dBuilder.parse(inputFile);
@@ -180,7 +187,7 @@ public class Championship {
         
         //LEE PILOTOS
         try {
-        	File inputFile = new File ("pilotos.xml");
+        	File inputFile = new File ("src/resources/files/pilotos.xml");
         	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         	Document doc = dBuilder.parse(inputFile);
@@ -200,7 +207,7 @@ public class Championship {
         			pilot.setNamepilot(pilotElement.getElementsByTagName("nombre").item(0).getTextContent());
         			pilot.setNameabbreviated(pilotElement.getElementsByTagName("nombreAbreviado").item(0).getTextContent());
         			pilot.setQuantitycarrerwin(Integer.parseInt(pilotElement.getElementsByTagName("cantCarrerasGanadas").item(0).getTextContent()));
-        			pilot.setQuantitypolepositions(Integer.parseInt(pilotElement.getElementsByTagName("cantPolePosition").item(0).getTextContent()));
+        			pilot.setQuantitypolepositions(Integer.parseInt(pilotElement.getElementsByTagName("cantPolePositions").item(0).getTextContent()));
         			pilot.setQuantitychampionswin(Integer.parseInt(pilotElement.getElementsByTagName("cantCampeonatos").item(0).getTextContent()));
         			pilot.setQuantitycarrer(Integer.parseInt(pilotElement.getElementsByTagName("cantParticipaciones").item(0).getTextContent()));
         			pilot.setCountry(new Country(pilotElement.getElementsByTagName("pais").item(0).getTextContent())); // creo que hay que crear un pais abreviado
@@ -218,9 +225,36 @@ public class Championship {
 
     public void StartGame(){
         
-        frame_Init = new Frame_Init();
-        frame_Init.setVisible(true);
-        frame_Init.setController(this);
+        frame_init = new Frame_Init(this);
+        frame_init.setVisible(true);
         
     }
+    public void CreateSelect(){
+
+        frame_init.setVisible(false);
+        frame_create = new Frame_Create(this);
+        frame_create.setVisible(true);
+    }
+
+    public void SelectCar(){
+        frame_create.switchToPanel("panelCar");
+    }
+    public void SelectPilot(){
+        frame_create.switchToPanel("panelPilot");
+    }
+
+    public Frame_Init getFrame_init() {
+        return frame_init;
+    }
+    public void setFrame_init(Frame_Init frame_init) {
+        this.frame_init = frame_init;
+    }
+    public Frame_Create getFrame_create() {
+        return frame_create;
+    }
+    public void setFrame_create(Frame_Create frame_create) {
+        this.frame_create = frame_create;
+    }
+    
+
 }

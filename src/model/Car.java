@@ -7,7 +7,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 public class Car {
-    private int num;
+    private String model;
 	private String mark;
 	private float maximumspeed; //km/hs
 	private float aceleration; // 0 a 100 km/h
@@ -31,10 +31,10 @@ public class Car {
     private boolean moverArriba;
 	
 	
-	public Car(int num, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
+	public Car(String model, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
 			Tires tires, int overtakingperformance, int corneringperformance, int reliability,ImageIcon image) {
 		super();
-		this.num = num;
+		this.model = model;
 		this.mark = mark;
 		this.maximumspeed = maximumspeed;
 		this.aceleration = aceleration;
@@ -51,12 +51,12 @@ public class Car {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getNum() {
-		return num;
+	public String getModel() {
+		return model;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public String getMark() {
@@ -186,39 +186,37 @@ public class Car {
         return moverArriba;
     }
     
-    public void move () {
-    	Point carLocation = getLocation(); // esto se va a poder usar cuando tengamos los JLabel 
-    	if (isMoverDerecha()) {
-    		if (carLocation.x <= WindowsRace.getFinish().getLocation().x-55) { // windowsRace es el frame de la carrera
-    			carLocation.x += 10;
-    		} else {
-    			setMoverDerecha(false);
-    			setMoverAbajo(true);
-    		}
-    	} else if (isMoverAbajo()) {
-    		if (carLocation.y <= WindowsRace.getHeight()-55) {
-    			carLocation.y += 10;
-    		} else {
-    			setMoverAbajo(false);
-    			setMoverIzquierda(true);
-    		}
-    	} else if (isMoverIzquierda()) {
-    		if (carLocation.x >= 0) {
-    			carLocation.x -= 10;
-    		} else {
-    			setMoverIzquierda(false);
-    			setMoverArriba(true);
-    		}
-    	} else if (isMoverArriba()) {
-    		if (carLocation.y >= 0) {
-    			carLocation.y -= 10;
-    		} else {
-    			setMoverArriba(false);
-    			setMoverDerecha(true);
-    		}
-    	}
-    }
-	
-}
+    // public void move () {
+    // 	Point carLocation = getLocation(); // esto se va a poder usar cuando tengamos los JLabel 
+    // 	if (isMoverDerecha()) {
+    // 		if (carLocation.x <= WindowsRace.getFinish().getLocation().x-55) { // windowsRace es el frame de la carrera
+    // 			carLocation.x += 10;
+    // 		} else {
+    // 			setMoverDerecha(false);
+    // 			setMoverAbajo(true);
+    // 		}
+    // 	} else if (isMoverAbajo()) {
+    // 		if (carLocation.y <= WindowsRace.getHeight()-55) {
+    // 			carLocation.y += 10;
+    // 		} else {
+    // 			setMoverAbajo(false);
+    // 			setMoverIzquierda(true);
+    // 		}
+    // 	} else if (isMoverIzquierda()) {
+    // 		if (carLocation.x >= 0) {
+    // 			carLocation.x -= 10;
+    // 		} else {
+    // 			setMoverIzquierda(false);
+    // 			setMoverArriba(true);
+    // 		}
+    // 	} else if (isMoverArriba()) {
+    // 		if (carLocation.y >= 0) {
+    // 			carLocation.y -= 10;
+    // 		} else {
+    // 			setMoverArriba(false);
+    // 			setMoverDerecha(true);
+    // 		}
+    // 	}
+    // }
 	
 }
