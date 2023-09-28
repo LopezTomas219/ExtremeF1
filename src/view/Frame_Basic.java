@@ -13,7 +13,7 @@ public class Frame_Basic extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frame_Basic frame = new Frame_Basic();
+					Frame_Basic frame = new Frame_Basic(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -23,7 +23,8 @@ public class Frame_Basic extends JFrame{
 	}
 	private Championship controller;
 
-    public Frame_Basic(){
+    public Frame_Basic(Championship controller){
+		this.controller=controller;
         setTitle("Extreme F1");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -34,5 +35,8 @@ public class Frame_Basic extends JFrame{
     }
 	public void setController(Championship controller){
 		this.controller= controller;
+	}
+	public Championship getController(){
+		return controller;
 	}
 }
