@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -55,6 +56,12 @@ public class Frame_Init extends Frame_Basic{
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchToPanel("Panel_Charge");
+            }
+        });
+        panel_Init.getBtnClose().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
             }
         });
         panel_Charge.getBtnBack().addActionListener(new ActionListener() {

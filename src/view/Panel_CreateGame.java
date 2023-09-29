@@ -65,11 +65,17 @@ public class Panel_CreateGame extends JPanel {
 
         ListCars = new ArrayList<>(controller.getListCars());
         ListPilots = new ArrayList<>(controller.getListPilots());
-
+        
+        carSelect= null;
+        pilotSelect = null;
+        
         chosenColors.add(Color.decode("#7FFFD4"));
+        chosenColors.add(Color.WHITE);
+        colorSelect= Color.WHITE;
         setLayout(new BorderLayout());
         setBackground(Color.decode("#FFFAF0"));
-        // Crear título y agregarlo al norte
+ 
+        
         titleLabel = new JLabel("Crear Campeonato", SwingConstants.CENTER);
         titleLabel.setFont(customFont);
         int top = 60, left = 20, bottom = 20, right = 20;
@@ -126,6 +132,7 @@ public class Panel_CreateGame extends JPanel {
         coloredSquare.setBackground(Color.RED);
         coloredSquare.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
         coloredSquare.setPreferredSize(commonSize);
+        coloredSquare.setBackground(Color.WHITE);
         centerPanel.add(coloredSquare, gbc);
         
         // Botón debajo del cuadrado
@@ -141,7 +148,7 @@ public class Panel_CreateGame extends JPanel {
                 if (colorSelect != null) {
                     if (!chosenColors.contains(colorSelect)) {
                         coloredSquare.setBackground(colorSelect);
-                        chosenColors.add(colorSelect);
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "Este color ya ha sido elegido.", "Color duplicado", JOptionPane.WARNING_MESSAGE);
                     }
@@ -240,13 +247,7 @@ public class Panel_CreateGame extends JPanel {
         centerPanel.add(createTournamentButton, gbc);
 
         
-        // Configurar listeners para los botones (aquí solo son stubs, debes agregar el código real según lo necesites)
-        addPlayerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Código al presionar "Agregar jugador"
-            }
-        });
+      
 
         createTournamentButton.addActionListener(new ActionListener() {
             @Override
@@ -257,11 +258,23 @@ public class Panel_CreateGame extends JPanel {
         //--------------------Panel jugadores---------------------------------------
         JPanel playersPanel = new JPanel();
 
-
+        addPlayerButton.addActionListener(new ActionListener() {
+           @Override
+	       public void actionPerformed(ActionEvent e) {
+        	 if(verifyFields()) {
+        		 chosenColors.add(colorSelect);
+        		 coloredSquare.setBackground(Color.WHITE);
+        	 }else JOptionPane.showMessageDialog(null, "Complete los campos");
+           }
+	    });
         // Agregar el panel con alineación a la izquierda en el centro del panel principal
         this.add(centerPanel, BorderLayout.WEST);
+        this.add(playersPanel, BorderLayout.SOUTH);
     }
-
     
+    public boolean verifyFields() {
+    	return  !nameField.getText().trim().isEmpty()&& !chosenColors.contains(colorSelect) ;
+   	     
+    }
 
 }

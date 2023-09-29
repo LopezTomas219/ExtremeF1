@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 public class Panel_Charge extends JPanel {
     
     private Image backgroundImage;
-    private JButton btnBack;
+    private NeonRoundedButton btnBack;
     public Panel_Charge() {
         backgroundImage = new ImageIcon("src/resources/images/Background.png").getImage();
         setLayout(new BorderLayout());
@@ -45,20 +45,24 @@ public class Panel_Charge extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         buttonPanel.setOpaque(false); 
         Dimension btnDimension = new Dimension(120, 60);
-        JButton btnSave1 = new JButton("Partida 1");
+        NeonRoundedButton btnSave1 = new NeonRoundedButton("Partida 1");
         btnSave1.setPreferredSize(btnDimension);
-        JButton btnSave2 = new JButton("Partida 2");
+        btnSave1.setNeonColor(Color.decode("#00EF00"));
+        NeonRoundedButton btnSave2 = new NeonRoundedButton("Partida 2");
         btnSave2.setPreferredSize(btnDimension);
-        JButton btnSave3 = new JButton("Vacio");
+        btnSave2.setNeonColor(Color.decode("#00EF00"));
+        NeonRoundedButton btnSave3 = new NeonRoundedButton("Vacio");
         btnSave3.setPreferredSize(btnDimension);
+        btnSave3.setNeonColor(Color.decode("#00EF00"));
         buttonPanel.add(btnSave1);
         buttonPanel.add(btnSave2);
         buttonPanel.add(btnSave3);
 
-        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         backPanel.setOpaque(false);
-        btnBack = new JButton("Volver");
-        btnBack.setPreferredSize(new Dimension(120, 40));
+        btnBack = new NeonRoundedButton("Volver");
+        btnBack.setPreferredSize(btnDimension);
+        btnBack.setNeonColor(Color.decode("#DD0000"));
         backPanel.add(btnBack);
         // Agregar todos los paneles a main_Panel
         main_Panel.add(Box.createVerticalGlue());

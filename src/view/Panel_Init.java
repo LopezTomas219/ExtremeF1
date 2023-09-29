@@ -103,4 +103,7 @@ public class Panel_Init extends JPanel {
     public JButton getBtnStart(){
         return btnStart;
     }
+    public JButton getBtnClose() {
+    	return btnClose;
+    }
 }

@@ -27,7 +27,7 @@ public class Frame_Create extends Frame_Basic {
 
     public Frame_Create(Championship controller){
         
-		    super(controller);
+		super(controller);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(cardLayout);
         Panel_CreateGame panelCreate = new Panel_CreateGame(controller);
