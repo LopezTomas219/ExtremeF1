@@ -1,14 +1,16 @@
 package model;
 
+import java.awt.Color;
+
 public class Player implements Comparable<Player>{
 
 private String name;
-private String color ;
+private Color color ;
 private Pilot pilot;
 private Car car;
 //Tiene un tiempo por vuelta 
 
-public Player(String name, String color, Pilot pilot, Car car) {
+public Player(String name, Color color, Pilot pilot, Car car) {
 	super();
 	this.name = name;
 	this.color = color;
@@ -27,12 +29,12 @@ public void setName(String name) {
 }
 
 
-public String getColor() {
+public Color getColor() {
 	return color;
 }
 
 
-public void setColor(String color) {
+public void setColor(Color color) {
 	this.color = color;
 }
 

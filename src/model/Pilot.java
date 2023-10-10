@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.Icon;
+
 public class Pilot {
     private String name;
 	private String nameabbreviated;
@@ -18,6 +20,8 @@ public class Pilot {
 	private int ranking; // Mejora el rendimiento del conductor durante las sesiones de clasificaci�n, lo que le permite obtener una mejor posici�n de inicio en la grilla de partida
 	private int tirecare; //s 	neum�ticos 	Una nota alta de gesti�n de neum�ticos indica que la forma de manejo del 	piloto reducir� el desgaste de los neum�ticos en las carreras
 	private int  start; //Una valoraci�n de inicio de carrera m�s alta aumentar� las estad�sticas de 	sobrepaso y de defensa del corredor, durante la primera vuelta de la carrera
+
+	private boolean selected;
 
 	public Pilot(String name, String nameabbreviated,Country country, int quantitycarrer, int quantitycarrerwin,int quantitychampions, 
     int quantitychampionswin, int quantitypolepositions, int overtaking,int positiondefense, int ranking, int tirecare, int start) {
@@ -156,6 +160,15 @@ public class Pilot {
     public String toString() {
         return "pilot [name=" + name + ", nameabbreviated=" + nameabbreviated + ", country=" + country + "]";
     }
+    public Icon getImage() {
+        return null;
+    }
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 	
     
 }

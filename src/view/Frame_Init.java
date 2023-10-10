@@ -5,11 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
 import controller.Championship;
 
 
@@ -70,7 +66,22 @@ public class Frame_Init extends Frame_Basic{
                 switchToPanel("Panel_Init");
             }
         });
+        panel_Init.getBtnClose().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            
+                if(JOptionPane.showConfirmDialog(null, 
+                "¿Estás seguro de que quieres salir?", 
+                "Confirmación", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
+        });
+        
     }
+        
 
     public void switchToPanel(String panel){
         cardLayout.show(getContentPane(), panel);

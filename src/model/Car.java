@@ -30,7 +30,9 @@ public class Car {
     private boolean moverIzquierda;
     private boolean moverArriba;
 	
+	private boolean selected;
 	
+
 	public Car(String model, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
 			Tires tires, int overtakingperformance, int corneringperformance, int reliability,ImageIcon image) {
 		super();
@@ -218,5 +220,13 @@ public class Car {
     // 		}
     // 	}
     // }
+
+
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 	
 }

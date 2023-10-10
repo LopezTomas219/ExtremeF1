@@ -4,33 +4,33 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import controller.Championship;
 
 
 
 public class Frame_Create extends Frame_Basic {
     
-
+    private Panel_CreateGame panelCreate;
     private CardLayout cardLayout = new CardLayout();
-
+    List<BoxSelect> boxesPilots = new ArrayList<>();
+    List<BoxSelect> boxesCars = new ArrayList<>();
     public Frame_Create(Championship controller){
         
 		super(controller);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(cardLayout);
-        Panel_CreateGame panelCreate = new Panel_CreateGame(controller);
+        panelCreate = new Panel_CreateGame(controller);
         add(panelCreate,"panelCreate");
         JPanel contentCar = new JPanel(new BorderLayout());
         JPanel panelBackCar = new JPanel();
@@ -54,8 +54,18 @@ public class Frame_Create extends Frame_Basic {
             e.printStackTrace();
         }
         for (int i = 0; i < controller.getListCars().size(); i++) {  
-          BoxSelect box = new BoxSelect(img,"Marca: "+controller.getListCars().get(i).getMark(),"Modelo: "+controller.getListCars().get(i).getModel(),
-          "Velocidad max: "+controller.getListCars().get(i).getMaximumspeed()+"");
+          BoxSelect box = new BoxSelect(controller.getListCars().get(i),img,panelCreate);
+          box.getBtn().setActionCommand(String.valueOf(i));
+
+          box.getBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String command = e.getActionCommand();
+                int id = Integer.parseInt(command);  // Convertir la cadena de vuelta a un entero
+                System.out.println("Se seleccionó el botón con ID: " + id);
+            }
+        });
+          boxesCars.add(box);
           panelCar.add(box);
         }
         panelBackCar.setBackground(Color.decode("#7FFFD4"));
@@ -66,8 +76,8 @@ public class Frame_Create extends Frame_Basic {
         
         JPanel panelPilot = new JPanel(new GridLayout(2, 5));
         for (int i = 0; i < controller.getListPilots().size(); i++) {  
-          BoxSelect box = new BoxSelect(img,"Nombre: "+controller.getListPilots().get(i).getNamepilot(),"Pais: "+controller.getListPilots().get(i).getCountry().getName(),
-          "Carreras ganadas: "+controller.getListPilots().get(i).getQuantitycarrerwin()+"");
+          BoxSelect box = new BoxSelect(controller.getListPilots().get(i),img,panelCreate);
+          boxesPilots.add(box);
           panelPilot.add(box);
         }
         JPanel panelBackPilot = new JPanel();
@@ -91,5 +101,13 @@ public class Frame_Create extends Frame_Basic {
     public void switchToPanel(String panel){
       cardLayout.show(getContentPane(), panel);
     }
-    
+    public List<BoxSelect> getBoxesCars(){
+      return boxesCars;
+    }
+    public List<BoxSelect> getBoxesPilots(){
+      return boxesPilots;
+    }
+    public Panel_CreateGame getPanelCreate(){
+      return panelCreate;
+    }
 }

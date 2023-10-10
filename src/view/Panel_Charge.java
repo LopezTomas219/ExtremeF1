@@ -4,18 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
-
 import java.awt.Image;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class Panel_Charge extends JPanel {
     
@@ -38,8 +34,6 @@ public class Panel_Charge extends JPanel {
         spacer.setPreferredSize(new Dimension(main_Panel.getWidth(), 20));
         spacer.setOpaque(false);
         main_Panel.add(spacer);
-        Dimension btnSize = new Dimension(150, 50);
-        
 
         // Panel de Botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -64,7 +58,8 @@ public class Panel_Charge extends JPanel {
         btnBack.setPreferredSize(btnDimension);
         btnBack.setNeonColor(Color.decode("#DD0000"));
         backPanel.add(btnBack);
-        // Agregar todos los paneles a main_Panel
+      
+        
         main_Panel.add(Box.createVerticalGlue());
         main_Panel.add(buttonPanel);
         main_Panel.add(backPanel);

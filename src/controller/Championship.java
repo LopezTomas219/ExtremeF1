@@ -12,9 +12,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
+
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import model.*;
+import view.BoxPlayer;
 import view.Frame_Create;
 import view.Frame_Init;
 
@@ -70,10 +74,10 @@ public class Championship {
         ListPlayers = listPlayers;
     }
 
-    public void CreatePlayer(String name, String color, Pilot pilot, Car car){
+    public void CreatePlayer(String name, Color color, Pilot pilot, Car car){
         PlayerReal player = new PlayerReal(name, color, pilot, car);
         ListPlayers.add(player);
-        Collections.sort(ListPlayers);
+        // Collections.sort(ListPlayers);
     }
     /*------------------------------------------------Circuitos-------------------------------------------------------------*/
     public List<Circuit> getListCircuits() {
@@ -255,6 +259,14 @@ public class Championship {
     public void setFrame_create(Frame_Create frame_create) {
         this.frame_create = frame_create;
     }
-    
-
+    public void removePlayer(BoxPlayer boxPlayer) {
+        
+        ListPlayers.remove(boxPlayer.getPlayer());
+        Container parent = boxPlayer.getParent();
+        frame_create.getPanelCreate().removePlayer(boxPlayer.getPlayer());
+        frame_create.getPanelCreate().updateBoxes();
+        parent.remove(boxPlayer);
+        parent.revalidate();
+        parent.repaint();
+    }
 }
