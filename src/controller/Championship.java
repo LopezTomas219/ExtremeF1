@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,20 +14,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import model.*;
 import view.BoxPlayer;
+import view.ColorPanel;
 import view.Frame_Create;
 import view.Frame_Init;
 
 public class Championship {
     
+    
     private List<Pilot> ListPilots = new ArrayList<>();
     private List<Car> ListCars = new ArrayList<>();
+    private List<Color> ListColors = new ArrayList<>();
     private List<Player> ListPlayers = new ArrayList<>();
     private List<Circuit> ListCircuits = new ArrayList<>();
     private List<Race> ListRace = new ArrayList<>();
@@ -33,6 +37,7 @@ public class Championship {
     private List <Country> ListCountries = new ArrayList<>();
     private String nameGame;
     private int numberPlayers;
+   
     private Frame_Init frame_init;
     private Frame_Create frame_create;
     
@@ -46,8 +51,8 @@ public class Championship {
 	Tires hard= new Hard();
 	Tires medioum = new Medium();
 	
-    ChargeXML();
-    CreateRaces();
+    chargeXML();
+    createRaces();
     }
     /*--------------------------------Pilotos-----------------------------------------------------------------------------*/
     public List<Pilot> getListPilots() {
@@ -74,10 +79,17 @@ public class Championship {
         ListPlayers = listPlayers;
     }
 
-    public void CreatePlayer(String name, Color color, Pilot pilot, Car car){
+    public void createPlayer(String name, Color color, Pilot pilot, Car car){
         PlayerReal player = new PlayerReal(name, color, pilot, car);
         ListPlayers.add(player);
-        // Collections.sort(ListPlayers);
+        numberPlayers++;
+        
+    } 
+    public int getNumberPlayers() {
+        return numberPlayers;
+    }
+    public void setNumberPlayers(int numberPlayers) {
+        this.numberPlayers = numberPlayers;
     }
     /*------------------------------------------------Circuitos-------------------------------------------------------------*/
     public List<Circuit> getListCircuits() {
@@ -95,11 +107,11 @@ public class Championship {
         this.nameGame = nameGame;
     }
     
-    private void CreateRaces(){
+    private void createRaces(){
         //Se crean las carreras usando la lista de circuitos ,con las fechas del cronograma.
     }
    
-    private void ChargeXML(){
+    private void chargeXML(){
         //Carga los pilotos,autos ,circuitos y fechas.
     	// LEE AUTOS
         try {
@@ -224,26 +236,58 @@ public class Championship {
     		e.printStackTrace();
     	}
     }
+    public void createPlayersRandom(Set<Car> usedCars, Set<Pilot> usedPilots, Set<Color> usedColors) {
+        int cont = 1;
+        ListColors.addAll(new ColorPanel(usedColors).getColors());
+
+        
+        for (Car car : ListCars) { 
+            if (usedCars.contains(car)) continue;
+    
+            for (Pilot pilot : ListPilots) { 
+                if (usedPilots.contains(pilot)) continue;
+    
+                for (Color color : ListColors) { 
+                    if (usedColors.contains(color)) continue;
+    
+                    Player newPlayer = new PlayerSimulator("bot "+ cont, color,pilot, car);
+                    ListPlayers.add(newPlayer); 
+    
+                    usedCars.add(car);
+                    usedPilots.add(pilot);
+                    usedColors.add(color);
+                    cont ++;
+                    break; 
+                }
+            }
+        }
+    }
+    
+    public void createTournament(){
+            Collections.sort(ListPlayers);
+            
+    }
+
 
     //---------------------------------------------------------------Vista
 
-    public void StartGame(){
+    public void startGame(){
         
         frame_init = new Frame_Init(this);
         frame_init.setVisible(true);
         
     }
-    public void CreateSelect(){
+    public void createSelect(){
 
         frame_init.setVisible(false);
         frame_create = new Frame_Create(this);
         frame_create.setVisible(true);
     }
 
-    public void SelectCar(){
+    public void selectCar(){
         frame_create.switchToPanel("panelCar");
     }
-    public void SelectPilot(){
+    public void selectPilot(){
         frame_create.switchToPanel("panelPilot");
     }
 

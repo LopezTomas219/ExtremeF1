@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 
@@ -36,6 +38,7 @@ public class ColorPanel extends JPanel {
         Color.decode("#FF3360"), // Rosa medio
         Color.decode("#FF3388")  // Rosa fuerte
     };
+
     public ColorPanel(Set<Color> selectedColors) {
 
         this.selectedColors = selectedColors;
@@ -92,5 +95,7 @@ public class ColorPanel extends JPanel {
     public void setSelectedColors(Set<Color> selectedColors) {
         this.selectedColors = selectedColors;
     }
-    
+    public ArrayList<Color> getColors() {
+        return new ArrayList<>(Arrays.asList(colors));
+    }
 }

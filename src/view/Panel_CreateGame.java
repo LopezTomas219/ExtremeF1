@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -47,7 +46,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
     private Car carSelect = null;
     private Pilot pilotSelect = null;
 
-    private static Set<Color> selectedColors = new HashSet<>();
+    private Set<Color> selectedColors = new HashSet<>();
     private Set<String> playerNames = new HashSet<>();
     private Set<Car> selectedCars = new HashSet<>();
     private Set<Pilot> selectedPilots = new HashSet<>();
@@ -206,7 +205,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                controller.SelectPilot();
+                controller.selectPilot();
             }
 
         });
@@ -237,7 +236,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                controller.SelectCar();
+                controller.selectCar();
             }
         });
         centerPanel.add(btnSelectCar, gbc);
@@ -274,7 +273,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
                     controller.getListPlayers().clear();
                     selectedColors.clear();
                     controller.getFrame_create().dispose();
-                    controller.StartGame();
+                    controller.startGame();
                 };
             }
         });
@@ -294,7 +293,8 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
                 
                 if(!nameField.getText().trim().isEmpty() && !controller.getListPlayers().isEmpty()){
                     controller.setNameGame(nameField.getText().trim());
-                    System.out.println("Se cre el torneo "+ controller.getNameGame() +"con " + controller.getListPlayers().toString());
+                    controller.createPlayersRandom(selectedCars , selectedPilots , selectedColors);
+                    System.out.println("Se crea el torneo "+ controller.getNameGame() +"/n" + controller.getListPlayers().toString());
                     
                 }else {
                     if (nameField.getText().trim().isEmpty()) {
@@ -319,7 +319,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
             public void actionPerformed(ActionEvent e) {
                 if (validatePlayerInfo()) {
                     
-                    controller.CreatePlayer(namePlayerField.getText().trim(), colorSelect, pilotSelect, carSelect);
+                    controller.createPlayer(namePlayerField.getText().trim(), colorSelect, pilotSelect, carSelect);
                     playerNames.add(namePlayerField.getText().trim());
                     namePlayerField.setText("");
                     selectedColors.add(colorSelect);

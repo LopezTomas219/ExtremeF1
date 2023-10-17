@@ -45,7 +45,7 @@ public class Frame_Init extends Frame_Basic{
             @Override
             public void actionPerformed(ActionEvent e) {
     
-                    controller.CreateSelect();
+                    controller.createSelect();
             }
         });
         panel_Init.getBtnCharge().addActionListener(new ActionListener() {

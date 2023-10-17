@@ -64,6 +64,6 @@ public int compareTo(Player other) {
 
 @Override
 public String toString() {
-	return  name + "  " + color + " " + pilot + " " + car ;
+	return  name + "  " + color + " " + pilot + " " + car + "\n";
 }
 }
