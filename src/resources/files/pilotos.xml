@@ -14,6 +14,7 @@
     <cantCampeonatos>7</cantCampeonatos>
     <cantParticipaciones>250</cantParticipaciones>
 	<pais>ITA</pais>
+	<imagen>src/resources/files/pilots/5.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>30</presupuesto>
@@ -29,6 +30,7 @@
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>70</cantParticipaciones>
 	<pais>GER</pais>
+	<imagen>src/resources/files/pilots/6.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>45</presupuesto>
@@ -44,6 +46,7 @@
     <cantCampeonatos>4</cantCampeonatos>
     <cantParticipaciones>250</cantParticipaciones>
 	<pais>JPN</pais>
+	<imagen>src/resources/files/pilots/1.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>35</presupuesto>
@@ -59,6 +62,7 @@
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>40</cantParticipaciones>
 	<pais>CHN</pais>
+	<imagen>src/resources/files/pilots/7.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>40</presupuesto>
@@ -74,6 +78,7 @@
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>60</cantParticipaciones>
 	<pais>USA</pais>
+	<imagen>src/resources/files/pilots/2.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>35</presupuesto>
@@ -89,6 +94,7 @@
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>50</cantParticipaciones>
 	<pais>HUN</pais>
+	<imagen>src/resources/files/pilots/8.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>30</presupuesto>
@@ -104,6 +110,7 @@
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>20</cantParticipaciones>
 	<pais>NIG</pais>
+	<imagen>src/resources/files/pilots/3.jpg</imagen>
   </piloto>
   <piloto>
     <presupuesto>25</presupuesto>
@@ -112,12 +119,13 @@
     <clasificacion>75</clasificacion>
     <cuidadoNeumaticos>65</cuidadoNeumaticos>
     <largada>70</largada>
-    <nombre>Luka Toppetazzo</nombre>
-    <nombreAbreviado>TOP</nombreAbreviado>
+    <nombre>Anna Rossi</nombre>
+    <nombreAbreviado>ROS</nombreAbreviado>
     <cantCarrerasGanadas>0</cantCarrerasGanadas>
     <cantPolePositions>0</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>20</cantParticipaciones>
 	<pais>ITA</pais>
+	<imagen>src/resources/files/pilots/4.jpg</imagen>
   </piloto>
 </pilotos>

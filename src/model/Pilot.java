@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Image;
+
 import javax.swing.Icon;
 
 public class Pilot {
@@ -12,6 +14,7 @@ public class Pilot {
 	private int quantitychampionswin;
 	private int quantitypolepositions;
 	private int budget; // PRESUPUESTO ALTO , MEDIO , BAJO 
+	private Image infographic;
 	
 	
 	//Caractersiticas del piloto Cada piloto consta de valores entre 1 al 100 a mayor valor mejor deempe�o
@@ -24,7 +27,7 @@ public class Pilot {
 	private boolean selected;
 
 	public Pilot(String name, String nameabbreviated,Country country, int quantitycarrer, int quantitycarrerwin,int quantitychampions, 
-    int quantitychampionswin, int quantitypolepositions, int overtaking,int positiondefense, int ranking, int tirecare, int start) {
+    int quantitychampionswin, int quantitypolepositions, int overtaking,int positiondefense, int ranking, int tirecare, int start, Image infographic) {
 		this.name = name;
 		this.nameabbreviated = nameabbreviated;
 		this.country = country;
@@ -38,6 +41,7 @@ public class Pilot {
 		this.ranking = ranking;
 		this.tirecare = tirecare;
 		this.start = start;
+		this.infographic = infographic;
 	}
 	public Pilot() {
 		// TODO Auto-generated constructor stub
@@ -168,6 +172,12 @@ public class Pilot {
 	}
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	public Image getInfographic() {
+		return infographic;
+	}
+	public void setInfographic(Image infographic) {
+		this.infographic = infographic;
 	}
 	
     

@@ -227,6 +227,9 @@ public class Championship {
         			pilot.setQuantitychampionswin(Integer.parseInt(pilotElement.getElementsByTagName("cantCampeonatos").item(0).getTextContent()));
         			pilot.setQuantitycarrer(Integer.parseInt(pilotElement.getElementsByTagName("cantParticipaciones").item(0).getTextContent()));
         			pilot.setCountry(new Country(pilotElement.getElementsByTagName("pais").item(0).getTextContent())); // creo que hay que crear un pais abreviado
+        			String imagePath = pilotElement.getElementsByTagName("imagen").item(0).getTextContent();
+        			BufferedImage image = ImageIO.read(new File(imagePath));
+        			pilot.setInfographic(image);
         			// falta la cantidad de campeonatos participados en los xml
         			ListPilots.add(pilot);
         		}
