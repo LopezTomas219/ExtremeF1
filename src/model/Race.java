@@ -28,40 +28,41 @@ public class Race {
     private void qualifyingRound(){
         //Ronda de clasificacion,luego ordenar por tiempo
     }
-    public void RunRace(){
-
+    public void RunRace(Circuit circuit){
         List <Thread> playerThreads = new ArrayList<>();
-    	
-    	for (Player player : ListPlayers) {
-    		Thread playerThread = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					while (CONTINUE) {
-						//player.getCar().move();
-						//player.getCar().updateFuelAndTires();
-						player.getVelocity();
-						try {
-							Thread.sleep((int) (Math.random() * 1000));
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+    	while (CONTINUE) {
+	    	for (Player player : ListPlayers) {
+	    		Thread playerThread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						int currentLap = 0;
+						float totalDistance = 0.0f;
+						while (currentLap < circuit.getNumberflaps()) {
+							player.getVelocity();
+							player.move(player.getVelocity()); // esto esta mal xq estoy tomando como q son solo metros tipo (60 metros en 1 seg)
+							totalDistance += player.getVelocity();
+							if (totalDistance >= circuit.getTracklength()) {
+								currentLap++;
+								totalDistance = 0.0f;
+							}
+							try {
+								Thread.sleep((int) (Math.random() * 1000));
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 					}
-				}
-    			
-    		});
-    		playerThreads.add(playerThread);
-    		playerThread.start();
-    }
-    	
-    for (Thread thread : playerThreads) {
-    	try {
-    		thread.join();
-    	} catch (InterruptedException e) {
-    		e.printStackTrace();
+	    		});
+	    		playerThreads.add(playerThread);
+	    		playerThread.start();
+	    	}
+			for (Thread thread : playerThreads) {
+				try {
+			    	thread.join();
+			    } catch (InterruptedException e) {
+			    	e.printStackTrace();
+			    }
+			}	
     	}
-    }	
-}
-
+    }
 }

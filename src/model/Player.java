@@ -9,6 +9,8 @@ private Color color ;
 private Pilot pilot;
 private Car car;
 private Circuit circuit;
+private int currentLap = 0;
+private float currentPosition = 0.0f;
 //Tiene un tiempo por vuelta 
 
 public Player(String name, Color color, Pilot pilot, Car car) {
@@ -74,7 +76,29 @@ public void setCircuit(Circuit circuit) {
 
 public float getVelocity() {
 	long totalSeconds = circuit.getTimerecord().toSecondOfDay();
-	return ((circuit.getTracklength() / (float) totalSeconds) * 3600/1000) * getCar().calculateVelocity() * getPilot().calculateProperties();
+	return ((circuit.getTracklength() / (float) totalSeconds)) * getCar().calculateVelocity() * getPilot().calculateProperties();
+}
+
+public float getTotalRace() {
+	return circuit.getNumberflaps()*circuit.getTracklength();
+}
+
+public void move(float distanceMoved) {
+    // Simula el movimiento del jugador en la pista
+    currentPosition += distanceMoved;
+
+    // Verifica si el jugador ha completado todas las vueltas
+    if (currentLap < circuit.getNumberflaps()) {
+        if (currentPosition >= circuit.getTracklength()) {
+            currentLap++;
+            currentPosition -= circuit.getTracklength();
+            System.out.println(name + " ha completado la vuelta " + currentLap);
+        }
+    } else {
+        // El jugador ha completado todas las vueltas, puedes detener el movimiento
+        System.out.println(name + " ha terminado la carrera");
+        // Detener el hilo o marcar al jugador como terminado, dependiendo de tu implementación.
+    }
 }
 
 

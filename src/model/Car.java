@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -21,11 +23,11 @@ public class Car {
     //asignarModo 
 	//caracteristicas del 0 al 100
 	
-	private int overtakingperformance; //Determina c�mo se desempe�a el auto en aceleraciones r�pidas 	y/o rectas prolongadas para sobrepasar a otros autos
-	private int corneringperformance; //Determina c�mo es el comportamiento del auto en las curvas
+	private int overtakingperformance; //Determina c mo se desempe a el auto en aceleraciones r pidas 	y/o rectas prolongadas para sobrepasar a otros autos
+	private int corneringperformance; //Determina c mo es el comportamiento del auto en las curvas
 
-	private int reliability; //Determina qu� tan confiable es el auto: A menor valor de este atributo, 
-    //mayores probabilidades de que vaya a abandonar 	durante la carrera por desperfectos mec�nicos
+	private int reliability; //Determina qu  tan confiable es el auto: A menor valor de este atributo, 
+    //mayores probabilidades de que vaya a abandonar 	durante la carrera por desperfectos mec nicos
 	private Image image;
 	private boolean moverDerecha;
     private boolean moverAbajo;
@@ -37,7 +39,8 @@ public class Car {
 	private Point location;
 	private DriveMode driveMode;
 	private float fuel;
-
+	private Timer timer;
+    private float velocity;
 	
 
 	public Car(String model, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
@@ -196,42 +199,12 @@ public class Car {
         return moverArriba;
     }
     
-//     public void move () {
-//     	Point carLocation = getLocation(); // esto se va a poder usar cuando tengamos los JLabel 
-//     	if (isMoverDerecha()) {
-//     		if (carLocation.x <= RaceTrackPanel.WIDTH -55) { // windowsRace es el frame de la carrera
-//     			carLocation.x += 10;
-//     		} else {
-//     			setMoverDerecha(false);
-//     			setMoverAbajo(true);
-//     		}
-//     	} else if (isMoverAbajo()) {
-//     		if (carLocation.y <= RaceTrackPanel.HEIGHT -55) {
-//     			carLocation.y += 10;
-//     		} else {
-//     			setMoverAbajo(false);
-//     			setMoverIzquierda(true);
-//     		}
-//     	} else if (isMoverIzquierda()) {
-//     		if (carLocation.x >= 0) {
-//     			carLocation.x -= 10;
-//     		} else {
-//     			setMoverIzquierda(false);
-//     			setMoverArriba(true);
-//     		}
-//     	} else if (isMoverArriba()) {
-//     		if (carLocation.y >= 0) {
-//     			carLocation.y -= 10;
-//     		} else {
-//     			setMoverArriba(false);
-//     			setMoverDerecha(true);
-//     		}
-//     	}
-//     }
-     
+     public float velocityProm() {
+    	 return (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); 
+     }
      public float calculateVelocity() {
     	// Factor de velocidad inicial (basado en la potencia del auto)
-         float initialSpeedFactor = (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); // tiene en cuenta la aceleracion pero nunca llega a ser 1 el resultado final
+         // tiene en cuenta la aceleracion pero nunca llega a ser 1 el resultado final
          
       // Ajuste de velocidad según el modo de manejo
          float driveModeFactor = (float) driveMode.getFactor();
@@ -252,13 +225,78 @@ public class Car {
          } else {
         	 fuelFactor = 0f;
          }
-         float finalSpeed = initialSpeedFactor * tires.getTireFactor() * driveModeFactor * fuelFactor * maximumspeed;
+         float finalSpeed = velocityProm() * tires.getTireFactor() * driveModeFactor * fuelFactor * maximumspeed;
          finalSpeed = Math.max(0.0f, Math.min(1.0f, finalSpeed/maximumspeed)); // Normaliza el valor dentro del rango [0, 1]
     	 return finalSpeed;
      }
      
-     public void updateFuelAndTires(float distance) {
-    	 fuel -=  distance * 0.001f;
+         public void FuelMonitor(float velocity) {
+             this.velocity = velocity;
+             timer = new Timer();
+         }
+
+         public void startMonitoring() {
+             timer.scheduleAtFixedRate(new TimerTask() {
+                 @Override
+                 public void run() {
+                     float distance = velocity * elapsedTime() / 1000.0f; // Distancia en kilómetros
+                     fuelStatus(distance, elapsedTime());
+                 }
+             }, 1000, 1000); // Iniciar la tarea cada segundo
+         }
+
+         public void stopMonitoring() {
+             timer.cancel();
+         }
+
+         public void fuelStatus(float distance, long elapsedTime) {
+             float time = distance / velocity;
+             float oneEighthTime = time / 8;
+             float oneSixthTime = time / 6;
+             float oneFourthTime = time / 4;
+             float halfTime = time / 2;
+
+             if (elapsedTime >= oneEighthTime) {
+                 fuel = 75;
+             } else if (elapsedTime >= oneSixthTime) {
+                 fuel = 50;
+             } else if (elapsedTime >= oneFourthTime) {
+                 fuel = 25;
+             } else if (elapsedTime >= halfTime) {
+                 fuel = 0;
+                 stopMonitoring(); // Detener la monitorización cuando el combustible se agote
+             }
+
+//             System.out.println("Tiempo transcurrido: " + elapsedTime / 1000 + " segundos");
+//             System.out.println("Combustible restante: " + fuel + "%");
+         }
+
+         public long elapsedTime() {
+             return System.currentTimeMillis();
+         }
+
+        
+//            MAIN: FuelMonitor fuelMonitor = new FuelMonitor(60.0f); // Velocidad en kilómetros por hora
+//                  fuelMonitor.startMonitoring();
+     
+
+     
+//     public void fuelStatus(float distance, Timer timer) {
+//    	 float time =distance/velocityProm();
+//    	 if (timer. == time/8) {
+//    		 fuel= 75;
+//    	 }else if(timer == time/6) {
+//    		 fuel= 50; 
+//    	 }if(timer == time/4) {
+//    		 fuel= 25;
+//    	 }
+//    	 if (timer == time/2) {
+//    		 fuel=0;
+//    	 }
+//     }
+//     
+     public void tiresStatus(float distance) {
+    	 
      }
 
 
