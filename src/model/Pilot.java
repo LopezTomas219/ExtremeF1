@@ -25,6 +25,7 @@ public class Pilot {
 	private int  start; //Una valoraci�n de inicio de carrera m�s alta aumentar� las estad�sticas de 	sobrepaso y de defensa del corredor, durante la primera vuelta de la carrera
 
 	private boolean selected;
+	
 
 	public Pilot(String name, String nameabbreviated,Country country, int quantitycarrer, int quantitycarrerwin,int quantitychampions, 
     int quantitychampionswin, int quantitypolepositions, int overtaking,int positiondefense, int ranking, int tirecare, int start, Image infographic) {
@@ -179,6 +180,10 @@ public class Pilot {
 	public void setInfographic(Image infographic) {
 		this.infographic = infographic;
 	}
-	
     
+	
+	public float calculateProperties() {
+		float combinedProperties = ((overtaking / 100.0f) + (positiondefense / 100.0f) + (tirecare / 100.0f) + (start / 100.0f)) /4.0f;
+		return Math.max(0.0f, Math.min(1.0f, combinedProperties));
+	}
 }

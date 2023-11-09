@@ -11,6 +11,7 @@
     <consumo>75</consumo>
     <marca>Mercedes</marca>
     <modelo>AMG GT</modelo>
+    <imagen>src/resources/files/cars/1.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>80</performanceSobrepaso>
@@ -23,6 +24,7 @@
     <consumo>80</consumo>
     <marca>Ferrari</marca>
     <modelo>LaFerrari</modelo>
+    <imagen>src/resources/files/cars/2.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>88</performanceSobrepaso>
@@ -35,6 +37,7 @@
     <consumo>70</consumo>
     <marca>Red Bull</marca>
     <modelo>RB16B</modelo>
+    <imagen>src/resources/files/cars/3.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>78</performanceSobrepaso>
@@ -47,6 +50,7 @@
     <consumo>85</consumo>
     <marca>McLaren</marca>
     <modelo>MCL35M</modelo>
+    <imagen>src/resources/files/cars/4.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>85</performanceSobrepaso>
@@ -59,6 +63,7 @@
     <consumo>78</consumo>
     <marca>Alpine</marca>
     <modelo>A521</modelo>
+    <imagen>src/resources/files/cars/5.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>86</performanceSobrepaso>
@@ -71,6 +76,7 @@
     <consumo>77</consumo>
     <marca>AlphaTauri</marca>
     <modelo>AT02</modelo>
+    <imagen>src/resources/files/cars/6.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>82</performanceSobrepaso>
@@ -83,6 +89,7 @@
     <consumo>79</consumo>
     <marca>Aston Martin</marca>
     <modelo>AMR21</modelo>
+    <imagen>src/resources/files/cars/7.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>79</performanceSobrepaso>
@@ -95,6 +102,7 @@
     <consumo>83</consumo>
     <marca>Alfa Romeo</marca>
     <modelo>C41</modelo>
+    <imagen>src/resources/files/cars/8.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>84</performanceSobrepaso>
@@ -107,6 +115,7 @@
     <consumo>76</consumo>
     <marca>Williams</marca>
     <modelo>FW43B</modelo>
+    <imagen>src/resources/files/cars/2.png</imagen>
   </auto>
   <auto>
     <performanceSobrepaso>81</performanceSobrepaso>
@@ -119,5 +128,6 @@
     <consumo>81</consumo>
     <marca>Haas</marca>
     <modelo>VF-21</modelo>
+    <imagen>src/resources/files/cars/5.png</imagen>
   </auto>
 </autos>

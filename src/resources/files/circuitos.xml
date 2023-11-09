@@ -6,7 +6,7 @@
     <longitud>5800</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>18</cantCurvas>
-    <recordVueltaRapida>9500</recordVueltaRapida>
+    <recordVueltaRapida>95</recordVueltaRapida>
     <pais>UK</pais>
     <nombre>Silverstone Circuit</nombre>
   </circuito>
@@ -16,7 +16,7 @@
     <longitud>4200</longitud>
     <cantZonasSobrepaso>4</cantZonasSobrepaso>
     <cantCurvas>14</cantCurvas>
-    <recordVueltaRapida>8900</recordVueltaRapida>
+    <recordVueltaRapida>89</recordVueltaRapida>
     <pais>NED</pais>
     <nombre>Circuit Zandvoort</nombre>
   </circuito>
@@ -26,7 +26,7 @@
     <longitud>5300</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>17</cantCurvas>
-    <recordVueltaRapida>9400</recordVueltaRapida>
+    <recordVueltaRapida>94</recordVueltaRapida>
     <pais>ITA</pais>
     <nombre>Autodromo Nazionale Monza</nombre>
   </circuito>
@@ -36,7 +36,7 @@
     <longitud>4400</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>15</cantCurvas>
-    <recordVueltaRapida>9000</recordVueltaRapida>
+    <recordVueltaRapida>90</recordVueltaRapida>
     <pais>MON</pais>
     <nombre>Circuit de Monaco</nombre>
   </circuito>
@@ -46,7 +46,7 @@
     <longitud>5300</longitud>
     <cantZonasSobrepaso>4</cantZonasSobrepaso>
     <cantCurvas>15</cantCurvas>
-    <recordVueltaRapida>9200</recordVueltaRapida>
+    <recordVueltaRapida>92</recordVueltaRapida>
     <pais>SIN</pais>
     <nombre>Marina Bay Street Circuit</nombre>
   </circuito>
@@ -56,7 +56,7 @@
     <longitud>4200</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>16</cantCurvas>
-    <recordVueltaRapida>9300</recordVueltaRapida>
+    <recordVueltaRapida>93</recordVueltaRapida>
     <pais>RUS</pais>
     <nombre>Sochi Autodrom</nombre>
   </circuito>
@@ -66,7 +66,7 @@
     <longitud>4900</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>13</cantCurvas>
-    <recordVueltaRapida>9100</recordVueltaRapida>
+    <recordVueltaRapida>91</recordVueltaRapida>
     <pais>AUT</pais>
     <nombre>Red Bull Ring</nombre>
   </circuito>
@@ -76,7 +76,7 @@
     <longitud>5900</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>19</cantCurvas>
-    <recordVueltaRapida>9700</recordVueltaRapida>
+    <recordVueltaRapida>97</recordVueltaRapida>
     <pais>MEX</pais>
     <nombre>Autódromo Hermanos Rodríguez</nombre>
   </circuito>
@@ -86,7 +86,7 @@
     <longitud>4600</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>14</cantCurvas>
-    <recordVueltaRapida>8800</recordVueltaRapida>
+    <recordVueltaRapida>88</recordVueltaRapida>
     <pais>USA</pais>
     <nombre>Circuit of the Americas</nombre>
   </circuito>

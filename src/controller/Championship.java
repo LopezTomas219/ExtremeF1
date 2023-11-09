@@ -46,10 +46,10 @@ public class Championship {
 
     
 	     //Se crean las ruedas de los autos con su atributo durabilidad !! 
-	Tires soft = new Soft(70);
-	Tires wet = new Wet();
-	Tires hard= new Hard();
-	Tires medioum = new Medium();
+//	Tires soft = new Soft(30,90);
+//	Tires wet = new Wet(20,85,90);
+//	Tires hard= new Hard(90,40);
+//	Tires medium = new Medium(50,70);
 	
     chargeXML();
     createRaces();
@@ -138,6 +138,9 @@ public class Championship {
                     car.setFuelconsum(Float.parseFloat(carElement.getElementsByTagName("consumo").item(0).getTextContent()));
                     car.setMark(carElement.getElementsByTagName("marca").item(0).getTextContent());
                     car.setModel(carElement.getElementsByTagName("modelo").item(0).getTextContent());
+                    String imagePath = carElement.getElementsByTagName("imagen").item(0).getTextContent();
+        			BufferedImage image = ImageIO.read(new File(imagePath));
+        			car.setImage(image);
                     ListCars.add(car);
                 }
             }

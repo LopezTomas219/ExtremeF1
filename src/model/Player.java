@@ -8,6 +8,7 @@ private String name;
 private Color color ;
 private Pilot pilot;
 private Car car;
+private Circuit circuit;
 //Tiene un tiempo por vuelta 
 
 public Player(String name, Color color, Pilot pilot, Car car) {
@@ -62,8 +63,25 @@ public int compareTo(Player other) {
 	return this.name.compareTo(other.name);
 }
 
+public Circuit getCircuit() {
+	return circuit;
+}
+
+
+public void setCircuit(Circuit circuit) {
+	this.circuit = circuit;
+}
+
+public float getVelocity() {
+	long totalSeconds = circuit.getTimerecord().toSecondOfDay();
+	return ((circuit.getTracklength() / (float) totalSeconds) * 3600/1000) * getCar().calculateVelocity() * getPilot().calculateProperties();
+}
+
+
 @Override
 public String toString() {
 	return  name + "  " + color + " " + pilot + " " + car + "\n";
 }
+
+
 }

@@ -1,10 +1,21 @@
 package model;
 
 public class Wet extends Tires{
-
-	public Wet() {
-		
-	}
+	
+	//private int dryDurability;
+	 private Weathercondition weathercondition;
+/*
+//	public Wet(int durability, int grip, int dryDurability) {
+//        super(durability, grip);
+//        //this.dryDurability = dryDurability;
+//		
+//	}
+*/
+	 public Wet(Weathercondition weathercondition) {
+	        this.weathercondition = weathercondition;
+	        adjustDurability(); // Llamamos a un método para ajustar la durabilidad basándonos en las condiciones climáticas
+	        setTireFactor(1.1f);
+	 }
 
 	@Override
 	public void statusTires() {
@@ -12,9 +23,21 @@ public class Wet extends Tires{
 		
 	}
 	
+	private void adjustDurability() {
+		if (weathercondition.getCondition() == Condition.RAINY) {
+			setDurability(80);
+		} else {
+			setDurability(70);
+		}
+	}
 	
-	//Son los que mejor performance ofrecen en condiciones de lluvia. 
-	//Ofrecen gran durabilidad pero s�lo si la pista est� mojada, en pista 
-	//seca se rompen r�pidamente.
+
+//	public int getDryDurability() {
+//		return dryDurability;
+//	}
+//
+//	public void setDryDurability(int dryDurability) {
+//		this.dryDurability = dryDurability;
+//	}
 
 }

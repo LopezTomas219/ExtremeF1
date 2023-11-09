@@ -2,9 +2,11 @@ package model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+
 
 public class Car {
     private String model;
@@ -12,7 +14,7 @@ public class Car {
 	private float maximumspeed; //km/hs
 	private float aceleration; // 0 a 100 km/h
 	private float power; //HP
-	private float weight ; 
+	private float weight; 
 	private float fuelconsum; // consumo promedio por litros cada 100km
 	private Tires tires;
 	//private driveMode drivemode;//El drivemode no se construira ya que ira en una funcion la cual seria 
@@ -24,7 +26,7 @@ public class Car {
 
 	private int reliability; //Determina qu� tan confiable es el auto: A menor valor de este atributo, 
     //mayores probabilidades de que vaya a abandonar 	durante la carrera por desperfectos mec�nicos
-	private ImageIcon image;
+	private Image image;
 	private boolean moverDerecha;
     private boolean moverAbajo;
     private boolean moverIzquierda;
@@ -32,9 +34,14 @@ public class Car {
 	
 	private boolean selected;
 	
+	private Point location;
+	private DriveMode driveMode;
+	private float fuel;
+
+	
 
 	public Car(String model, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
-			Tires tires, int overtakingperformance, int corneringperformance, int reliability,ImageIcon image) {
+			Tires tires, int overtakingperformance, int corneringperformance, int reliability,Image image, DriveMode driveMode) {
 		super();
 		this.model = model;
 		this.mark = mark;
@@ -48,6 +55,7 @@ public class Car {
 		this.corneringperformance = corneringperformance;
 		this.reliability = reliability;
 		this.image = image;
+		this.driveMode = driveMode;
 	}
 	public Car() {
 		// TODO Auto-generated constructor stub
@@ -149,11 +157,11 @@ public class Car {
 		this.reliability = reliability;
 	}
 
-	public ImageIcon getImage() {
+	public Image getImage() {
 		return image;
 	}
 
-	public void setImage(ImageIcon image) {
+	public void setImage(Image image) {
 		this.image = image;
 	}
 	public void setMoverDerecha(boolean moverDerecha) {
@@ -188,38 +196,70 @@ public class Car {
         return moverArriba;
     }
     
-    // public void move () {
-    // 	Point carLocation = getLocation(); // esto se va a poder usar cuando tengamos los JLabel 
-    // 	if (isMoverDerecha()) {
-    // 		if (carLocation.x <= WindowsRace.getFinish().getLocation().x-55) { // windowsRace es el frame de la carrera
-    // 			carLocation.x += 10;
-    // 		} else {
-    // 			setMoverDerecha(false);
-    // 			setMoverAbajo(true);
-    // 		}
-    // 	} else if (isMoverAbajo()) {
-    // 		if (carLocation.y <= WindowsRace.getHeight()-55) {
-    // 			carLocation.y += 10;
-    // 		} else {
-    // 			setMoverAbajo(false);
-    // 			setMoverIzquierda(true);
-    // 		}
-    // 	} else if (isMoverIzquierda()) {
-    // 		if (carLocation.x >= 0) {
-    // 			carLocation.x -= 10;
-    // 		} else {
-    // 			setMoverIzquierda(false);
-    // 			setMoverArriba(true);
-    // 		}
-    // 	} else if (isMoverArriba()) {
-    // 		if (carLocation.y >= 0) {
-    // 			carLocation.y -= 10;
-    // 		} else {
-    // 			setMoverArriba(false);
-    // 			setMoverDerecha(true);
-    // 		}
-    // 	}
-    // }
+//     public void move () {
+//     	Point carLocation = getLocation(); // esto se va a poder usar cuando tengamos los JLabel 
+//     	if (isMoverDerecha()) {
+//     		if (carLocation.x <= RaceTrackPanel.WIDTH -55) { // windowsRace es el frame de la carrera
+//     			carLocation.x += 10;
+//     		} else {
+//     			setMoverDerecha(false);
+//     			setMoverAbajo(true);
+//     		}
+//     	} else if (isMoverAbajo()) {
+//     		if (carLocation.y <= RaceTrackPanel.HEIGHT -55) {
+//     			carLocation.y += 10;
+//     		} else {
+//     			setMoverAbajo(false);
+//     			setMoverIzquierda(true);
+//     		}
+//     	} else if (isMoverIzquierda()) {
+//     		if (carLocation.x >= 0) {
+//     			carLocation.x -= 10;
+//     		} else {
+//     			setMoverIzquierda(false);
+//     			setMoverArriba(true);
+//     		}
+//     	} else if (isMoverArriba()) {
+//     		if (carLocation.y >= 0) {
+//     			carLocation.y -= 10;
+//     		} else {
+//     			setMoverArriba(false);
+//     			setMoverDerecha(true);
+//     		}
+//     	}
+//     }
+     
+     public float calculateVelocity() {
+    	// Factor de velocidad inicial (basado en la potencia del auto)
+         float initialSpeedFactor = (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); // tiene en cuenta la aceleracion pero nunca llega a ser 1 el resultado final
+         
+      // Ajuste de velocidad según el modo de manejo
+         float driveModeFactor = (float) driveMode.getFactor();
+
+         // Ajuste de velocidad según el nivel de combustible (más combustible puede ralentizar el auto)
+         float fuelFactor;
+         
+         if (fuel == 100) {
+        	 fuelFactor = 0.6f;
+         } else if (fuel >= 75) {
+        	 fuelFactor = 0.7f;
+         } else if (fuel >= 50) {
+        	 fuelFactor = 0.8f;
+         } else if (fuel >= 25) {
+        	 fuelFactor = 0.9f;
+         } else if (fuel > 0) {
+        	 fuelFactor = 1.0f;
+         } else {
+        	 fuelFactor = 0f;
+         }
+         float finalSpeed = initialSpeedFactor * tires.getTireFactor() * driveModeFactor * fuelFactor * maximumspeed;
+         finalSpeed = Math.max(0.0f, Math.min(1.0f, finalSpeed/maximumspeed)); // Normaliza el valor dentro del rango [0, 1]
+    	 return finalSpeed;
+     }
+     
+     public void updateFuelAndTires(float distance) {
+    	 fuel -=  distance * 0.001f;
+     }
 
 
 	public boolean isSelected() {
@@ -227,6 +267,18 @@ public class Car {
 	}
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	public Point getLocation() {
+		return location;
+	}
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+	public DriveMode getDriveMode() {
+		return driveMode;
+	}
+	public void setDriveMode(DriveMode driveMode) {
+		this.driveMode = driveMode;
 	}
 	
 }

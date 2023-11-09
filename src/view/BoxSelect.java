@@ -120,14 +120,14 @@ public class BoxSelect extends JPanel {
     }
       // Constructor para autos
       public BoxSelect(Car car, BufferedImage img,SelectionListener selectionListener) {
-        this(img,selectionListener);
+        this((BufferedImage) car.getImage(),selectionListener);
         this.car = car;
         updateContent("Marca: " + car.getMark(), "Modelo: " + car.getModel(), "Velocidad max: " + car.getMaximumspeed());
     }
 
     // Constructor para pilotos
     public BoxSelect(Pilot pilot, BufferedImage img,SelectionListener selectionListener) {
-        this(img,selectionListener);
+        this((BufferedImage) pilot.getInfographic(),selectionListener);
         this.pilot = pilot;
         updateContent("Nombre: " + pilot.getNamepilot(), "Pais: " + pilot.getCountry().getName(), "Carreras ganadas: " + pilot.getQuantitycarrerwin());
       
