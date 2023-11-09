@@ -6,11 +6,11 @@ public abstract class Tires {
 	private int grip;
 	private float tireFactor;
 
-//	public Tires(int durability, int grip) {
-//		this.durability = durability;
-//		this.grip = grip;
-//		
-//	}
+	public Tires(int durability, int grip) {
+		this.durability = durability;
+		this.grip = grip;
+		
+	}
 	
 	public Tires() {
 		
@@ -23,7 +23,9 @@ public abstract class Tires {
 	public void setDurability(int durability) {
 		this.durability = durability;
 	}
-
+	public void durabilityUpdate(int wear){
+		durability -= wear;
+	}
 	public int getGrip() {
 		return grip;
 	}
@@ -32,7 +34,7 @@ public abstract class Tires {
 		this.grip = grip;
 	}
 
-	public abstract void statusTires();
+	public abstract void tiresUpdate();
 	
 	public float getTireFactor() {
 		return tireFactor;

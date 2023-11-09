@@ -9,8 +9,8 @@ public class Soft extends Tires {
     
 
     @Override
-    public void statusTires() {
-    	
+	public void tiresUpdate() {
+    	durabilityUpdate(4);
     }
         // Implementa la lógica para evaluar el estado de los neumáticos Soft
 }

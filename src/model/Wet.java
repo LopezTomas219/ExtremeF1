@@ -18,10 +18,9 @@ public class Wet extends Tires{
 	 }
 
 	@Override
-	public void statusTires() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tiresUpdate() {
+    	durabilityUpdate(3);
+    }
 	
 	private void adjustDurability() {
 		if (weathercondition.getCondition() == Condition.RAINY) {

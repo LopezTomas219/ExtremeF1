@@ -8,10 +8,9 @@ public  class Medium  extends Tires {
 	}
 
 	@Override
-	public void statusTires() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tiresUpdate() {
+    	durabilityUpdate(5);
+    }
 
 	
 	

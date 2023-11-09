@@ -29,14 +29,7 @@ public class Car {
 	private int reliability; //Determina qu  tan confiable es el auto: A menor valor de este atributo, 
     //mayores probabilidades de que vaya a abandonar 	durante la carrera por desperfectos mec nicos
 	private Image image;
-	private boolean moverDerecha;
-    private boolean moverAbajo;
-    private boolean moverIzquierda;
-    private boolean moverArriba;
-	
 	private boolean selected;
-	
-	private Point location;
 	private DriveMode driveMode;
 	private float fuel;
 	private Timer timer;
@@ -167,37 +160,6 @@ public class Car {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	public void setMoverDerecha(boolean moverDerecha) {
-        this.moverDerecha = moverDerecha;
-    }
-
-    public boolean isMoverDerecha() {
-        return moverDerecha;
-    }
-
-    public void setMoverAbajo(boolean moverAbajo) {
-        this.moverAbajo = moverAbajo;
-    }
-
-    public boolean isMoverAbajo() {
-        return moverAbajo;
-    }
-
-    public void setMoverIzquierda(boolean moverIzquierda) {
-        this.moverIzquierda = moverIzquierda;
-    }
-
-    public boolean isMoverIzquierda() {
-        return moverIzquierda;
-    }
-
-    public void setMoverArriba(boolean moverArriba) {
-        this.moverArriba = moverArriba;
-    }
-
-    public boolean isMoverArriba() {
-        return moverArriba;
-    }
     
      public float velocityProm() {
     	 return (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); 
@@ -229,88 +191,17 @@ public class Car {
          finalSpeed = Math.max(0.0f, Math.min(1.0f, finalSpeed/maximumspeed)); // Normaliza el valor dentro del rango [0, 1]
     	 return finalSpeed;
      }
-     
-         public void FuelMonitor(float velocity) {
-             this.velocity = velocity;
-             timer = new Timer();
-         }
 
-         public void startMonitoring() {
-             timer.scheduleAtFixedRate(new TimerTask() {
-                 @Override
-                 public void run() {
-                     float distance = velocity * elapsedTime() / 1000.0f; // Distancia en kilómetros
-                     fuelStatus(distance, elapsedTime());
-                 }
-             }, 1000, 1000); // Iniciar la tarea cada segundo
-         }
-
-         public void stopMonitoring() {
-             timer.cancel();
-         }
-
-         public void fuelStatus(float distance, long elapsedTime) {
-             float time = distance / velocity;
-             float oneEighthTime = time / 8;
-             float oneSixthTime = time / 6;
-             float oneFourthTime = time / 4;
-             float halfTime = time / 2;
-
-             if (elapsedTime >= oneEighthTime) {
-                 fuel = 75;
-             } else if (elapsedTime >= oneSixthTime) {
-                 fuel = 50;
-             } else if (elapsedTime >= oneFourthTime) {
-                 fuel = 25;
-             } else if (elapsedTime >= halfTime) {
-                 fuel = 0;
-                 stopMonitoring(); // Detener la monitorización cuando el combustible se agote
-             }
-
-//             System.out.println("Tiempo transcurrido: " + elapsedTime / 1000 + " segundos");
-//             System.out.println("Combustible restante: " + fuel + "%");
-         }
-
-         public long elapsedTime() {
-             return System.currentTimeMillis();
-         }
-
-        
-//            MAIN: FuelMonitor fuelMonitor = new FuelMonitor(60.0f); // Velocidad en kilómetros por hora
-//                  fuelMonitor.startMonitoring();
-     
-
-     
-//     public void fuelStatus(float distance, Timer timer) {
-//    	 float time =distance/velocityProm();
-//    	 if (timer. == time/8) {
-//    		 fuel= 75;
-//    	 }else if(timer == time/6) {
-//    		 fuel= 50; 
-//    	 }if(timer == time/4) {
-//    		 fuel= 25;
-//    	 }
-//    	 if (timer == time/2) {
-//    		 fuel=0;
-//    	 }
-//     }
-//     
-     public void tiresStatus(float distance) {
-    	 
-     }
-
-
+	 public void carUpdate(){
+		fuel =- 3;
+		tires.tiresUpdate();
+		
+	 }
 	public boolean isSelected() {
 		return selected;
 	}
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-	}
-	public Point getLocation() {
-		return location;
-	}
-	public void setLocation(Point location) {
-		this.location = location;
 	}
 	public DriveMode getDriveMode() {
 		return driveMode;

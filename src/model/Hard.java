@@ -6,8 +6,8 @@ public class Hard extends Tires {
         setTireFactor(0.8f);
     }
 
-   @Override
-   public void statusTires() {
-	   
-   }
+    @Override
+	public void tiresUpdate() {
+    	durabilityUpdate(6);
+    }
 }
