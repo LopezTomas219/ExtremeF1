@@ -127,11 +127,13 @@ public void run() {
 	throw new UnsupportedOperationException("Unimplemented method 'run'");
 }
 public float calculateVelocity(){
-	return 40; //Calcular con la velocidad del auto y del piloto
+	float timeRecord = circuit.getTimerecord().getSecond();
+	return (circuit.getTracklength() * timeRecord) * car.calculateVelocity() * pilot.calculateProperties(); //Calcular con la velocidad del auto y del piloto
 }
 public float calculateMove(int time){
 	return calculateVelocity() * time;
 }
+
 
 }
 

@@ -19,8 +19,6 @@ public class Car {
 	private float weight; 
 	private float fuelconsum; // consumo promedio por litros cada 100km
 	private Tires tires;
-	//private driveMode drivemode;//El drivemode no se construira ya que ira en una funcion la cual seria 
-    //asignarModo 
 	//caracteristicas del 0 al 100
 	
 	private int overtakingperformance; //Determina c mo se desempe a el auto en aceleraciones r pidas 	y/o rectas prolongadas para sobrepasar a otros autos
@@ -193,7 +191,7 @@ public class Car {
      }
 
 	 public void carUpdate(){
-		fuel =- 3;
+		fuel -= 3;
 		tires.tiresUpdate();
 		
 	 }
