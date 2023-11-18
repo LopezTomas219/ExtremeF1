@@ -3,6 +3,8 @@ package model;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +40,39 @@ public class Race {
             playerThread.start();
         }
 
+    }
+    public List<Player> updateRacePositions(List<Laps> lapsList) {
+        // Ordenar la lista de vueltas por número de vuelta
+        Collections.sort(lapsList, Comparator.comparingInt(Laps::getLapNumber));
+
+        // Actualizar posiciones
+        for (int i = 1; i < lapsList.size(); i++) {
+            InformationLapsPilot currentInfo = lapsList.get(i).getInformationLapsPilot();
+            InformationLapsPilot prevInfo = lapsList.get(i - 1).getInformationLapsPilot();
+
+            if (currentInfo.isCompleted() && prevInfo.isCompleted()) {
+                int overtakes = currentInfo.getOvertakes();
+                if (overtakes > 0) {
+                    // El jugador adelantó a otros pilotos
+                    int currentPosition = ListPlayers.indexOf(currentInfo.getPilot());
+                    int newPosition = currentPosition - overtakes;
+                    if (newPosition >= 0) {
+                        Collections.swap(ListPlayers, currentPosition, newPosition);
+                    }
+                } else if (overtakes < 0) {
+                    // Otros jugadores adelantaron al jugador
+                    int currentPosition = ListPlayers.indexOf(currentInfo.getPilot());
+                    int newPosition = currentPosition - overtakes;
+                    if (newPosition < ListPlayers.size()) {
+                        Collections.swap(ListPlayers, currentPosition, newPosition);
+                    }
+                }
+                // Si overtakes == 0, no hubo cambios de posición
+            }
+        }
+
+        // Devolver la lista actualizada de posiciones
+        return ListPlayers;
     }
     
 }
