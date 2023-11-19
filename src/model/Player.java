@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Color;
 
-public class Player implements Comparable<Player> ,Runnable{
+public class Player implements Comparable<Player> ,Runnable ,FuelObserver , TiresObserver , EngineObserver{
 
 private String name;
 private Color color ;
@@ -18,8 +18,12 @@ public Player(String name, Color color, Pilot pilot, Car car) {
 	this.color = color;
 	this.pilot = pilot;
 	this.car = car;
+	car.addFuelObserver(this);
+	car.addTiresObserver(this);
+	car.addEngineObserver(this);
 }
 
+//--------------------------------Getter/Setters-------------------------------------------------//
 
 public String getName() {
 	return name;
@@ -80,7 +84,7 @@ public void setDistance(float distance) {
 	this.distance = distance;
 }
 
-
+//---------------------------------------------------------------------------------//
 
 @Override
 public int compareTo(Player other) {
@@ -133,6 +137,30 @@ public float calculateVelocity(){
 public float calculateMove(int time){
 	return calculateVelocity() * time;
 }
+
+//--------------------------------Observers-------------------------------------------------//
+@Override
+public void lowFuel() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+@Override
+public void tiresWear() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+@Override
+public void engineWear() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
 
 
 }

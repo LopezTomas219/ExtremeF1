@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 
-public class Car {
+public class Car implements CarObservable{
     private String model;
 	private String mark;
 	private float maximumspeed; //km/hs
@@ -32,7 +32,13 @@ public class Car {
 	private float fuel;
 	private Timer timer;
     private float velocity;
-	
+	private int engineStatus;
+	//--------------------------------Observadores--------------------------------------------------//
+	private FuelObserver fuelObserver;
+	private TiresObserver tiresObserver;
+	private EngineObserver engineObserver;
+	//--------------------------------Observadores--------------------------------------------------//
+
 
 	public Car(String model, String mark, float maximumspeed, float aceleration, float power, float weight, float fuelconsum,
 			Tires tires, int overtakingperformance, int corneringperformance, int reliability,Image image, DriveMode driveMode) {
@@ -50,10 +56,12 @@ public class Car {
 		this.reliability = reliability;
 		this.image = image;
 		this.driveMode = driveMode;
+		engineStatus = 100;
 	}
 	public Car() {
 		// TODO Auto-generated constructor stub
 	}
+	//--------------------------------Getter/Setters-------------------------------------------------//
 
 	public String getModel() {
 		return model;
@@ -158,6 +166,38 @@ public class Car {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	public float getFuel() {
+		return fuel;
+	}
+	public void setFuel(float fuel) {
+		this.fuel = fuel;
+	}
+	public Timer getTimer() {
+		return timer;
+	}
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+	public float getVelocity() {
+		return velocity;
+	}
+	public void setVelocity(float velocity) {
+		this.velocity = velocity;
+	}
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	public DriveMode getDriveMode() {
+		return driveMode;
+	}
+	public void setDriveMode(DriveMode driveMode) {
+		this.driveMode = driveMode;
+	}
+	//----------------------------------------------------------------------------------//
+
     
      public float velocityProm() {
     	 return (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); 
@@ -191,21 +231,68 @@ public class Car {
      }
 
 	 public void carUpdate(){
+
 		fuel -= 3;
 		tires.tiresUpdate();
+		engineStatus--;
+
+		if (fuel < 20) {
+			notifyLowFuel();
+		}
+		if (tires.getDurability()<10) {
+			notifyWearTires();
+		}
+		if (engineStatus < 10) {
+			notifyWearEngine();
+		}
 		
 	 }
-	public boolean isSelected() {
-		return selected;
+	
+	//--------------------------------Observers-------------------------------------------------//
+	@Override
+	public void addEngineObserver(EngineObserver engineObserver) {
+		this.engineObserver = engineObserver;
+		
 	}
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	@Override
+	public void addFuelObserver(FuelObserver fuelObserver) {
+		this.fuelObserver = fuelObserver;
+		
 	}
-	public DriveMode getDriveMode() {
-		return driveMode;
+	@Override
+	public void addTiresObserver(TiresObserver tiresObserver) {
+		this.tiresObserver = tiresObserver;
+		
 	}
-	public void setDriveMode(DriveMode driveMode) {
-		this.driveMode = driveMode;
+	@Override
+	public void notifyLowFuel() {
+		// TODO Auto-generated method stub
+		
 	}
+	@Override
+	public void notifyWearEngine() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyWearTires() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void removeEngineObserver(EngineObserver observer) {
+		this.engineObserver = null;
+		
+	}
+	@Override
+	public void removeFuelObserver(FuelObserver fuelObserver) {
+		this.fuelObserver = null;
+		
+	}
+	@Override
+	public void removeTiresObserver(TiresObserver observer) {
+		this.tiresObserver = null;
+		
+	} 
 	
 }
