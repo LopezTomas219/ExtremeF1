@@ -9,6 +9,7 @@
     <recordVueltaRapida>95</recordVueltaRapida>
     <pais>UK</pais>
     <nombre>Silverstone Circuit</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>72</cantVueltas>
@@ -19,6 +20,7 @@
     <recordVueltaRapida>89</recordVueltaRapida>
     <pais>NED</pais>
     <nombre>Circuit Zandvoort</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>53</cantVueltas>
@@ -29,6 +31,7 @@
     <recordVueltaRapida>94</recordVueltaRapida>
     <pais>ITA</pais>
     <nombre>Autodromo Nazionale Monza</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>60</cantVueltas>
@@ -39,6 +42,7 @@
     <recordVueltaRapida>90</recordVueltaRapida>
     <pais>MON</pais>
     <nombre>Circuit de Monaco</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>71</cantVueltas>
@@ -49,6 +53,7 @@
     <recordVueltaRapida>92</recordVueltaRapida>
     <pais>SIN</pais>
     <nombre>Marina Bay Street Circuit</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>71</cantVueltas>
@@ -59,6 +64,7 @@
     <recordVueltaRapida>93</recordVueltaRapida>
     <pais>RUS</pais>
     <nombre>Sochi Autodrom</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>56</cantVueltas>
@@ -69,6 +75,7 @@
     <recordVueltaRapida>91</recordVueltaRapida>
     <pais>AUT</pais>
     <nombre>Red Bull Ring</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>67</cantVueltas>
@@ -79,6 +86,7 @@
     <recordVueltaRapida>97</recordVueltaRapida>
     <pais>MEX</pais>
     <nombre>Autódromo Hermanos Rodríguez</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
   <circuito>
     <cantVueltas>54</cantVueltas>
@@ -89,5 +97,6 @@
     <recordVueltaRapida>88</recordVueltaRapida>
     <pais>USA</pais>
     <nombre>Circuit of the Americas</nombre>
+    <map>src/resources/circuitMaps/americas.json<map>
   </circuito>
 </circuitos>

@@ -1,4 +1,4 @@
-package model;
+package observer;
 
 public interface TiresObserver {
     

@@ -9,6 +9,11 @@ import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
+import observer.CarObservable;
+import observer.EngineObserver;
+import observer.FuelObserver;
+import observer.TiresObserver;
+
 
 public class Car implements CarObservable{
     private String model;

@@ -162,19 +162,16 @@ public class Championship {
         		Node circuitNode = circuitNodes.item(i);
         		if (circuitNode.getNodeType() == Node.ELEMENT_NODE) {
         			Element circuitElement = (Element) circuitNode;
-        			Circuit circuit = new Circuit();
-        			circuit.setNumberflaps(Integer.parseInt(circuitElement.getElementsByTagName("cantVueltas").item(0).getTextContent()));
-        			String imagePath = circuitElement.getElementsByTagName("infografia").item(0).getTextContent();
-        			BufferedImage image = ImageIO.read(new File(imagePath));
-        			circuit.setInfographic(image);
-        			circuit.setTracklength(Integer.parseInt(circuitElement.getElementsByTagName("longitud").item(0).getTextContent()));
-        			circuit.setNumberovertaking(Integer.parseInt(circuitElement.getElementsByTagName("cantZonasSobrepaso").item(0).getTextContent()));
-        			circuit.setNumbercurves(Integer.parseInt(circuitElement.getElementsByTagName("cantCurvas").item(0).getTextContent()));
-        			circuit.setTimerecord(LocalTime.ofSecondOfDay(Integer.parseInt(circuitElement.getElementsByTagName("recordVueltaRapida").item(0).getTextContent())));
-        			circuit.setCountrycircuit(new Country(circuitElement.getElementsByTagName("pais").item(0).getTextContent()));
-        			circuit.setNamecircuit(circuitElement.getElementsByTagName("nombre").item(0).getTextContent());
-        			ListCircuits.add(circuit);
-        			
+        			ListCircuits.add(new Circuit(
+                    circuitElement.getElementsByTagName("nombre").item(0).getTextContent(),
+                    new Country(circuitElement.getElementsByTagName("pais").item(0).getTextContent()),
+                    Integer.parseInt(circuitElement.getElementsByTagName("longitud").item(0).getTextContent()),
+                    Integer.parseInt(circuitElement.getElementsByTagName("cantVueltas").item(0).getTextContent()),
+                    ImageIO.read(new File(circuitElement.getElementsByTagName("infografia").item(0).getTextContent())),
+                    LocalTime.ofSecondOfDay(Integer.parseInt(circuitElement.getElementsByTagName("recordVueltaRapida").item(0).getTextContent())),
+                    Integer.parseInt(circuitElement.getElementsByTagName("cantZonasSobrepaso").item(0).getTextContent()),
+                    Integer.parseInt(circuitElement.getElementsByTagName("cantCurvas").item(0).getTextContent()),
+                    circuitElement.getElementsByTagName("map").item(0).getTextContent()));
         		}
         	}
         } catch (Exception e) {

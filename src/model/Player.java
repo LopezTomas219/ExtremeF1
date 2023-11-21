@@ -2,6 +2,10 @@ package model;
 
 import java.awt.Color;
 
+import observer.EngineObserver;
+import observer.FuelObserver;
+import observer.TiresObserver;
+
 public class Player implements Comparable<Player> ,Runnable ,FuelObserver , TiresObserver , EngineObserver{
 
 private String name;
@@ -10,6 +14,7 @@ private Pilot pilot;
 private Car car;
 private Circuit circuit;
 private float distance;
+private position position = new position();
 
 
 public Player(String name, Color color, Pilot pilot, Car car) {
@@ -18,6 +23,7 @@ public Player(String name, Color color, Pilot pilot, Car car) {
 	this.color = color;
 	this.pilot = pilot;
 	this.car = car;
+	
 	car.addFuelObserver(this);
 	car.addTiresObserver(this);
 	car.addEngineObserver(this);
@@ -84,6 +90,14 @@ public void setDistance(float distance) {
 	this.distance = distance;
 }
 
+public position getPosition() {
+	return position;
+}
+
+public void setPosition(position position) {
+	this.position = position;
+}
+
 //---------------------------------------------------------------------------------//
 
 @Override
@@ -101,26 +115,30 @@ public String toString() {
 @Override
 public void run() {
 	
-	int timeTotal = 0;
+	double timeTotal = 0;
 	int lap = 0;
+	boolean startLap = false;
 	while (lap < circuit.getNumberflaps()) {
-		int time = 0;
-		while (distance < circuit.getTracklength()) {
-			time++;
-			distance = calculateMove(time);
+		double timelap = 0;
+		if (!startLap) {
+			timelap = timelap + 0.5;
+
+		}
+		while (startLap) {
+			timelap = timelap + 0.5;
+			
 			car.carUpdate();
 	
 			System.out.println("Jugador " + name + " en movimiento. Distancia recorrida: " + distance + ", Tiempo: " + time + " segundos");
 			
 			
 			try {
-				Thread.sleep(1000); // Simula un segundo de acción
+				Thread.sleep(500); // Simula 0.5 segundos de acción
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}	
 		}
 		timeTotal += time;
-		distance = 0;
 		lap++;
 	
 		System.out.println("Jugador " + name + " ha terminado la vuelta en " + time + " segundos.");
@@ -162,7 +180,30 @@ public void engineWear() {
 
 
 
-
 }
 
 
+/**
+ * position
+ */
+ class position {
+
+	private int row ,col ; 
+	public position(){}
+	
+	public void setPosition(int row , int col){
+		this.row = row;
+		this.col = col;
+	}
+	public int getRow(){
+		return row;
+	}
+	public int getCol(){
+		return col;
+	}
+	public void resetPosition(){
+		this.row = 0;
+		this.col = 0;
+	}
+
+}

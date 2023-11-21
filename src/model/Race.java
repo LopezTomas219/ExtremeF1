@@ -8,13 +8,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.text.Position;
+
 
 public class Race {
     
     private Date date;
     private Circuit circuit;
     private List<Laps> ListLapsCompetition = new ArrayList<>();
-    private List<Laps> ListLapsQualifying = new ArrayList<>();
     private List<Player> ListPlayers = new ArrayList<>();
     private List<Weathercondition> listWeathercondition = new ArrayList<>();
     public static final boolean CONTINUE = true;
@@ -27,6 +28,40 @@ public class Race {
 
     }
     
+    private boolean isCellAvailable(int row ,int col){
+        return circuit.getCircuitMap()[row][col].isAvailable();
+    }
+    private synchronized void movePlayer(Player player , int row , int col){
+       
+        if (isCellAvailable(row, col)) {
+           
+            circuit.resetPos(player.getPosition().getRow(),player.getPosition().getCol());
+            circuit.setPos(player, row, col);
+            player.getPosition().setPosition(row, col);
+        }else {
+            if (circuit.getCircuitMap()[row][col].isOvertakeZone()) { //pregunta si a la posicion que se quiere mover es zona de adelantamientos
+                Player targetPlayer = circuit.getCircuitMap()[row][col].getPlayer();
+                if (tryOvertake(player, targetPlayer)) { 
+                    
+                    int row2 = player.getPosition().getRow();
+                    int col2 = player.getPosition().getCol();
+                    targetPlayer.getPosition().setPosition(row2, col2); //al jugador que lo adelantaron le asigno la position del que lo adelanto
+                    player.getPosition().setPosition(row, col); // posicion que adelanto
+                    circuit.setPos(player, row, col);
+                    circuit.setPos(targetPlayer, row2, col2);
+                }
+            }//else player.reduceSpeed();
+        }
+
+       
+
+    }
+    private boolean tryOvertake(Player overtakingPlayer ,Player targetPlayer){
+
+        //pensar logica para ver si adelanta o no
+        return false;
+    }
+
     private void qualifyingRound(){
         
     }
@@ -40,39 +75,6 @@ public class Race {
             playerThread.start();
         }
 
-    }
-    public List<Player> updateRacePositions(List<Laps> lapsList) {
-        // Ordenar la lista de vueltas por número de vuelta
-        Collections.sort(lapsList, Comparator.comparingInt(Laps::getLapNumber));
-
-        // Actualizar posiciones
-        for (int i = 1; i < lapsList.size(); i++) {
-            InformationLapsPilot currentInfo = lapsList.get(i).getInformationLapsPilot();
-            InformationLapsPilot prevInfo = lapsList.get(i - 1).getInformationLapsPilot();
-
-            if (currentInfo.isCompleted() && prevInfo.isCompleted()) {
-                int overtakes = currentInfo.getOvertakes();
-                if (overtakes > 0) {
-                    // El jugador adelantó a otros pilotos
-                    int currentPosition = ListPlayers.indexOf(currentInfo.getPilot());
-                    int newPosition = currentPosition - overtakes;
-                    if (newPosition >= 0) {
-                        Collections.swap(ListPlayers, currentPosition, newPosition);
-                    }
-                } else if (overtakes < 0) {
-                    // Otros jugadores adelantaron al jugador
-                    int currentPosition = ListPlayers.indexOf(currentInfo.getPilot());
-                    int newPosition = currentPosition - overtakes;
-                    if (newPosition < ListPlayers.size()) {
-                        Collections.swap(ListPlayers, currentPosition, newPosition);
-                    }
-                }
-                // Si overtakes == 0, no hubo cambios de posición
-            }
-        }
-
-        // Devolver la lista actualizada de posiciones
-        return ListPlayers;
     }
     
 }

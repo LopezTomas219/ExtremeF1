@@ -1,6 +1,13 @@
 package model;
-import java.time.LocalTime;
 import java.awt.Image;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalTime;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 
 
@@ -15,8 +22,12 @@ public class Circuit {
 	private LocalTime timerecord; // tiempo record de la vuelta mas rapida
 	private int numberovertaking; // cantidad de lugares de sobrepasos
 	private int numbercurves; // cantidad de curvas
+	private CircuitCell[][] circuitMap;
+	private int rowFinish;
+	private int colFinish;
+
 	public Circuit(String namecircuit, Country country, int tracklength, int numberflaps,
-			Image infographic, LocalTime timerecord, int numberovertaking, int numbercurves) {
+			Image infographic, LocalTime timerecord, int numberovertaking, int numbercurves , String jsonFilePath) {
 		super();
 		this.namecircuit = namecircuit;
 		this.country = country;
@@ -26,9 +37,7 @@ public class Circuit {
 		this.timerecord = timerecord;
 		this.numberovertaking = numberovertaking;
 		this.numbercurves = numbercurves;
-	}
-	public Circuit() {
-		// TODO Auto-generated constructor stub
+		loadCircuit(jsonFilePath);
 	}
 	public String getNamecircuit() {
 		return namecircuit;
@@ -80,7 +89,74 @@ public class Circuit {
 	public void setTimerecord(LocalTime timerecord) {
 		this.timerecord = timerecord;
 	}
-	 
+	public Country getCountry() {
+		return country;
+	}
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+	public int getNumberLaps() {
+		return numberLaps;
+	}
+	public void setNumberLaps(int numberLaps) {
+		this.numberLaps = numberLaps;
+	}
+	public CircuitCell[][] getCircuitMap() {
+		return circuitMap;
+	}
+	public void setCircuitMap(CircuitCell[][] circuitMap) {
+		this.circuitMap = circuitMap;
+	}
+	public int getRowFinish() {
+		return rowFinish;
+	}
+	public void setRowFinish(int rowFinish) {
+		this.rowFinish = rowFinish;
+	}
+	public int getColFinish() {
+		return colFinish;
+	}
+	public void setColFinish(int colFinish) {
+		this.colFinish = colFinish;
+	}
+	public void loadCircuit(String jsonFilePath){
+		try (JsonReader reader = Json.createReader(new FileReader(jsonFilePath))) {
+			JsonObject rootNode = reader.readObject();
+			JsonArray jsonArray = rootNode.getJsonArray("cells");
+	
+			int numRows = jsonArray.size();
+			int numCols = jsonArray.getJsonArray(0).size();
+			this.circuitMap = new CircuitCell[numRows][numCols];
+	
+			for (int i = 0; i < numRows; i++) {
+				JsonArray rowArray = jsonArray.getJsonArray(i);
+				for (int j = 0; j < numCols; j++) {
+					JsonObject cellObject = rowArray.getJsonObject(j);
+					int type = cellObject.getInt("type");
+					int direction = cellObject.getInt("direction");
+					if (type == 4) {
+						rowFinish = i;
+						colFinish = j;
+					}
+					this.circuitMap[i][j] = new CircuitCell(type, direction);
+				}
+			}
+	
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+			
+		}
+	}
+	public void resetPos(int row , int col){
+		circuitMap[row][col].setAvailable(true);
+		circuitMap[row][col].setPlayer(null);
+	}
+	public void setPos(Player player ,int row , int col){
+		circuitMap[row][col].setAvailable(false);
+		circuitMap[row][col].setPlayer(player);
+	}
+	
 
 	
 	
