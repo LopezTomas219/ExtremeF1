@@ -295,6 +295,12 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
                     controller.setNameGame(nameField.getText().trim());
                     controller.createPlayersRandom(selectedCars , selectedPilots , selectedColors);
                     System.out.println("Se crea el torneo "+ controller.getNameGame() +"/n" + controller.getListPlayers().toString());
+               
+                    Panel_CustomizeOptions customizeOptionsPanel = new Panel_CustomizeOptions(controller);
+                    controller.getFrame_create().getContentPane().removeAll();
+                    controller.getFrame_create().getContentPane().add(customizeOptionsPanel);
+                    controller.getFrame_create().revalidate();
+                    controller.getFrame_create().repaint();
                     
                 }else {
                     if (nameField.getText().trim().isEmpty()) {
@@ -374,7 +380,6 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
         if (!selectedCars.contains(carSelect)) {
          //   imageCar.setIcon(car.getImage());
             controller.getFrame_create().switchToPanel("panelCreate");
-            // Haz lo que necesites hacer con el auto seleccionado.
         } else {
             JOptionPane.showMessageDialog(this, "Este auto ya ha sido seleccionado.", "Auto duplicado", JOptionPane.WARNING_MESSAGE);
         }
@@ -386,7 +391,6 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
         if (!selectedPilots.contains(pilotSelect)) {
            // imagePilot.setIcon(pilot.getImage());
             controller.getFrame_create().switchToPanel("panelCreate");
-            // Haz lo que necesites hacer con el piloto seleccionado.
         } else {
             JOptionPane.showMessageDialog(this, "Este piloto ya ha sido seleccionado.", "Piloto duplicado", JOptionPane.WARNING_MESSAGE);
         }
