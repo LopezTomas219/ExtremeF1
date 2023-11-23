@@ -1,9 +1,9 @@
 package model;
 
 enum DriveMode {
-    fast(1.10),          // Máxima velocidad y máxima exigencia del motor, de los neumáticos y del consumo de combustible
-    conservative(0.90),     // Velocidad reducida, cuidado del estado del motor, de los neumáticos y del combustible
-    medium(1.00);            // Modo intermedio entre el modo rápido y el conservador
+    fast(1),          // Máxima velocidad y máxima exigencia del motor, de los neumáticos y del consumo de combustible
+    conservative(0.80),     // Velocidad reducida, cuidado del estado del motor, de los neumáticos y del combustible
+    medium(0.90);            // Modo intermedio entre el modo rápido y el conservador
 
     private double factor;
 

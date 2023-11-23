@@ -57,14 +57,19 @@ public class Race {
 
     }
     private boolean tryOvertake(Player overtakingPlayer ,Player targetPlayer){
-
-        //pensar logica para ver si adelanta o no
-        return false;
+    	return overtakingPlayer.calculateVelocity() * (overtakingPlayer.getCar().getOvertakingperformance() + overtakingPlayer.getPilot().getOvertaking() / 2) > targetPlayer.calculateVelocity() * targetPlayer.getPilot().getPositiondefense(); 
     }
 
     private void qualifyingRound(){
         
     }
+    
+    
+    public void goBox(Player player) {
+    	
+    }
+    
+    
     public void RunRace(){
         List <Thread> playerThreads = new ArrayList<>();
 		for (int player = 0; player < ListPlayers.size(); player++) {

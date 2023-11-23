@@ -3,7 +3,7 @@ package model;
 public class Soft extends Tires {
     public Soft() {
         setDurability(60); // Ejemplo de durabilidad de neumáticos Soft
-        setTireFactor(1.2f);
+        setTireFactor(1f);
     }
     
     

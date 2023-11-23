@@ -4,7 +4,7 @@ public  class Medium  extends Tires {
 
 	public Medium() {
 		setDurability(70); // Ejemplo de durabilidad de neumáticos Soft
-        setTireFactor(1f);
+        setTireFactor(0.9f);
 	}
 
 	@Override

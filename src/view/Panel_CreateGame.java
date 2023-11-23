@@ -296,11 +296,7 @@ public class Panel_CreateGame extends JPanel implements SelectionListener{
                     controller.createPlayersRandom(selectedCars , selectedPilots , selectedColors);
                     System.out.println("Se crea el torneo "+ controller.getNameGame() +"/n" + controller.getListPlayers().toString());
                
-                    Panel_CustomizeOptions customizeOptionsPanel = new Panel_CustomizeOptions(controller);
-                    controller.getFrame_create().getContentPane().removeAll();
-                    controller.getFrame_create().getContentPane().add(customizeOptionsPanel);
-                    controller.getFrame_create().revalidate();
-                    controller.getFrame_create().repaint();
+                    controller.getFrame_create().switchToPanel("panelCustomize");
                     
                 }else {
                     if (nameField.getText().trim().isEmpty()) {

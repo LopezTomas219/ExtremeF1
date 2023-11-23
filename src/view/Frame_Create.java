@@ -22,6 +22,7 @@ import controller.Championship;
 public class Frame_Create extends Frame_Basic {
     
     private Panel_CreateGame panelCreate;
+    private Panel_CustomizeOptions panelCustomize; 
     private CardLayout cardLayout = new CardLayout();
     List<BoxSelect> boxesPilots = new ArrayList<>();
     List<BoxSelect> boxesCars = new ArrayList<>();
@@ -31,7 +32,9 @@ public class Frame_Create extends Frame_Basic {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(cardLayout);
         panelCreate = new Panel_CreateGame(controller);
+        panelCustomize = new Panel_CustomizeOptions(controller);
         add(panelCreate,"panelCreate");
+        add(panelCustomize,"panelCustomize");
         JPanel contentCar = new JPanel(new BorderLayout());
         JPanel panelBackCar = new JPanel();
         NeonRoundedButton btnBackCar = new NeonRoundedButton("Volver");

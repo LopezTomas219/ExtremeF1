@@ -129,7 +129,7 @@ public void run() {
 			
 			car.carUpdate();
 	
-			System.out.println("Jugador " + name + " en movimiento. Distancia recorrida: " + distance + ", Tiempo: " + time + " segundos");
+			System.out.println("Jugador " + name + " en movimiento. Distancia recorrida: " + distance + ", Tiempo: " + timelap + " segundos");
 			
 			
 			try {
@@ -138,10 +138,10 @@ public void run() {
 				e.printStackTrace();
 			}	
 		}
-		timeTotal += time;
+		timeTotal += timelap;
 		lap++;
 	
-		System.out.println("Jugador " + name + " ha terminado la vuelta en " + time + " segundos.");
+		System.out.println("Jugador " + name + " ha terminado la vuelta en " + timelap + " segundos.");
 		
 	}
 

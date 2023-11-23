@@ -14,7 +14,7 @@ public class Wet extends Tires{
 	 public Wet(Weathercondition weathercondition) {
 	        this.weathercondition = weathercondition;
 	        adjustDurability(); // Llamamos a un método para ajustar la durabilidad basándonos en las condiciones climáticas
-	        setTireFactor(1.1f);
+	        setTireFactor(0.9f);
 	 }
 
 	@Override
@@ -26,7 +26,7 @@ public class Wet extends Tires{
 		if (weathercondition.getCondition() == Condition.RAINY) {
 			setDurability(80);
 		} else {
-			setDurability(70);
+			setDurability(50);
 		}
 	}
 	

@@ -205,7 +205,7 @@ public class Car implements CarObservable{
 
     
      public float velocityProm() {
-    	 return (power / 100) * (maximumspeed / ((aceleration * 1000) / 3600)); 
+    	 return (power / 1000) * (maximumspeed / ((aceleration * 1000) / 3600)); 
      }
      public float calculateVelocity() {
     	// Factor de velocidad inicial (basado en la potencia del auto)
@@ -230,8 +230,8 @@ public class Car implements CarObservable{
          } else {
         	 fuelFactor = 0f;
          }
-         float finalSpeed = velocityProm() * tires.getTireFactor() * driveModeFactor * fuelFactor * maximumspeed;
-         finalSpeed = Math.max(0.0f, Math.min(1.0f, finalSpeed/maximumspeed)); // Normaliza el valor dentro del rango [0, 1]
+         float finalSpeed = velocityProm() * tires.getTireFactor() * driveModeFactor * fuelFactor;
+         finalSpeed = Math.max(0.0f, Math.min(1.0f, finalSpeed)); // Normaliza el valor dentro del rango [0, 1]
     	 return finalSpeed;
      }
 
@@ -272,7 +272,7 @@ public class Car implements CarObservable{
 	@Override
 	public void notifyLowFuel() {
 		// TODO Auto-generated method stub
-		
+		fuelObserver.lowFuel();
 	}
 	@Override
 	public void notifyWearEngine() {
