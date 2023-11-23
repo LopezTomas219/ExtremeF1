@@ -48,6 +48,9 @@ public class CircuitCell {
        
         return type == 2;
     }
+    public boolean isStartFinish(){
+        return type == 4;
+    }
     
     
 }
