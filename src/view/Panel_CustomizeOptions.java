@@ -19,15 +19,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import controller.Championship;
+import model.Hard;
+import model.Medium;
+import model.Player;
+import model.Soft;
+import model.Tires;
+import model.Weathercondition;
+import model.Wet;
+import model.DriveMode;
 
 public class Panel_CustomizeOptions extends JPanel {
 
-    private Championship controller;
+    public Championship getController() {
+		return controller;
+	}
+
+	public void setController(Championship controller) {
+		this.controller = controller;
+	}
+
+	private Championship controller;
     private JLabel titleLabel;
     private JComboBox<String> fuelComboBox;
     private JComboBox<String> wheelsComboBox;
     private JComboBox<String> driveModeComboBox;
     private NeonRoundedButton confirmButton;
+    private int numberPlayers = 0;
 
     private static Font customFont;
 
@@ -43,7 +60,7 @@ public class Panel_CustomizeOptions extends JPanel {
     }
 
     public Panel_CustomizeOptions(Championship controller) {
-        this.controller = controller;
+    	this.controller = controller;
         setLayout(new BorderLayout());
         setBackground(Color.decode("#7FFFD4"));
 
@@ -62,6 +79,12 @@ public class Panel_CustomizeOptions extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        JLabel playerLabel = new JLabel ("Jugador: " + controller.getListPlayers().get(numberPlayers).getName());
+        playerLabel.setFont(customFont);
+        centerPanel.add(playerLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         JLabel fuelLabel = new JLabel("Cantidad de combustible:");
         centerPanel.add(fuelLabel, gbc);
 
@@ -71,7 +94,7 @@ public class Panel_CustomizeOptions extends JPanel {
         centerPanel.add(fuelComboBox, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         JLabel wheelsLabel = new JLabel("Tipo de neumáticos:");
         centerPanel.add(wheelsLabel, gbc);
 
@@ -81,7 +104,7 @@ public class Panel_CustomizeOptions extends JPanel {
         centerPanel.add(wheelsComboBox, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         JLabel driveModeLabel = new JLabel("Modo de manejo:");
         centerPanel.add(driveModeLabel, gbc);
 
@@ -91,7 +114,7 @@ public class Panel_CustomizeOptions extends JPanel {
         centerPanel.add(driveModeComboBox, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 2;
         confirmButton = new NeonRoundedButton("Confirmar");
         confirmButton.setPreferredSize(new Dimension(200, 50));
@@ -102,8 +125,68 @@ public class Panel_CustomizeOptions extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selectedFuel = (String) fuelComboBox.getSelectedItem();
+                int fuelPercentage;
+                switch (selectedFuel) {
+                case "1/4 tanque":
+                	fuelPercentage = 25;
+                	break;
+                case "1/2 tanque":
+                	fuelPercentage = 50;
+                	break;
+                case "3/4 tanque":
+                	fuelPercentage = 75;
+                	break;
+                case "Tanque lleno":
+                	fuelPercentage = 100;
+                	break;
+                default:
+                	fuelPercentage = 100;
+                }
                 String selectedWheels = (String) wheelsComboBox.getSelectedItem();
+                Tires selectedTires;
+                switch (selectedWheels) {
+                case "Soft":
+                	selectedTires = new Soft();
+                	break;
+                case "Hard":
+                	selectedTires = new Hard();
+                	break;
+                case "Medium":
+                	selectedTires = new Medium();
+                	break;
+                case "Wet":
+                	Weathercondition weathercondition = new Weathercondition(); // este habría que traerlo del circuito o de la carrera y pasarle la condicion climatica y la temperatura
+                	selectedTires = new Wet(weathercondition);
+                	break;
+                default:
+                	selectedTires = new Medium();
+                }
                 String selectedDriveMode = (String) driveModeComboBox.getSelectedItem();
+                DriveMode driveMode;
+                switch(selectedDriveMode) {
+                case "Rápido":
+                	driveMode = DriveMode.fast;
+                	break;
+                case "Conservador":
+                	driveMode = DriveMode.conservative;
+                	break;
+                case "Moderado":
+                	driveMode = DriveMode.moderate;
+                	break;
+                default:
+                	driveMode = DriveMode.moderate;
+                }
+                
+                if (numberPlayers < controller.getNumberPlayers()) {
+                	controller.getListPlayers().get(numberPlayers).getCar().setFuel(fuelPercentage);
+                	controller.getListPlayers().get(numberPlayers).getCar().setTires(selectedTires);
+                	controller.getListPlayers().get(numberPlayers).getCar().setDriveMode(driveMode);
+                	if (++numberPlayers < controller.getNumberPlayers()) {
+                		playerLabel.setText("Jugador: " + controller.getListPlayers().get(numberPlayers).getName());
+                	}
+                } else {
+                	// pasa al sig panel Frame_Race;
+                }
 
             }
         });

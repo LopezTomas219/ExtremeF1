@@ -177,6 +177,12 @@ public class Car implements CarObservable{
 	public void setFuel(float fuel) {
 		this.fuel = fuel;
 	}
+	public int getEngineStatus() {
+		return engineStatus;
+	}
+	public void setEngineStatus(int engineStatus) {
+		this.engineStatus = engineStatus;
+	}
 	public Timer getTimer() {
 		return timer;
 	}

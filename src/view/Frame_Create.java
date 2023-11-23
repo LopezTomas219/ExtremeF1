@@ -32,9 +32,8 @@ public class Frame_Create extends Frame_Basic {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(cardLayout);
         panelCreate = new Panel_CreateGame(controller);
-        panelCustomize = new Panel_CustomizeOptions(controller);
         add(panelCreate,"panelCreate");
-        add(panelCustomize,"panelCustomize");
+
         JPanel contentCar = new JPanel(new BorderLayout());
         JPanel panelBackCar = new JPanel();
         NeonRoundedButton btnBackCar = new NeonRoundedButton("Volver");
@@ -112,5 +111,14 @@ public class Frame_Create extends Frame_Basic {
     }
     public Panel_CreateGame getPanelCreate(){
       return panelCreate;
+    }
+    
+    public Panel_CustomizeOptions getPanelCustomizeOptions() {
+    	return panelCustomize;
+    }
+    
+    public void createPanelCustomize(Championship controller) {
+    	panelCustomize = new Panel_CustomizeOptions(controller);
+        add(panelCustomize,"panelCustomize");
     }
 }

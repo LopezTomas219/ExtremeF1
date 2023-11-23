@@ -11,6 +11,9 @@ public class Weathercondition {
 		this.Condition = condition;
 		this.Temp = temp;
 	}
+	public Weathercondition() {
+		// TODO Auto-generated constructor stub
+	}
 	public Condition getCondition() {
 		return Condition;
 	}
