@@ -2,18 +2,11 @@ package model;
 
 public class Wet extends Tires{
 	
-	//private int dryDurability;
-	 private Weathercondition weathercondition;
-/*
-//	public Wet(int durability, int grip, int dryDurability) {
-//        super(durability, grip);
-//        //this.dryDurability = dryDurability;
-//		
-//	}
-*/
+	
+
 	 public Wet(Weathercondition weathercondition) {
-	        this.weathercondition = weathercondition;
-	        adjustDurability(); // Llamamos a un método para ajustar la durabilidad basándonos en las condiciones climáticas
+
+	        adjustDurability(weathercondition); // Llamamos a un método para ajustar la durabilidad basándonos en las condiciones climáticas
 	        setTireFactor(0.9f);
 	 }
 
@@ -22,7 +15,7 @@ public class Wet extends Tires{
     	durabilityUpdate(3);
     }
 	
-	private void adjustDurability() {
+	private void adjustDurability(Weathercondition weathercondition) {
 		if (weathercondition.getCondition() == Condition.RAINY) {
 			setDurability(80);
 		} else {

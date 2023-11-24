@@ -86,7 +86,7 @@
     <recordVueltaRapida>97</recordVueltaRapida>
     <pais>MEX</pais>
     <nombre>Autódromo Hermanos Rodríguez</nombre>
-    <map>src/resources/circuitMaps/americas.json</map>
+    <map>src/resources/files/circuitMaps/americas.json</map>
   </circuito>
   <circuito>
     <cantVueltas>54</cantVueltas>

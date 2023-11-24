@@ -1,24 +1,39 @@
 package model;
 
+import java.util.Random;
+
 public class Weathercondition {
 	
-	private Condition Condition; 
+	private Condition condition; 
 	private int Temp;
 	
 	
-	public Weathercondition(Condition condition, int temp) {
+	public Weathercondition(Condition condition) {
 		super();
-		this.Condition = condition;
-		this.Temp = temp;
+		this.condition = condition;
+		randomTemp();
 	}
-	public Weathercondition() {
-		// TODO Auto-generated constructor stub
-	}
+	private void randomTemp() {
+        int maxTemp = condition.getTemperatureRange(); // Obtén el rango máximo de temperatura
+        int minTemp;
+
+        // Si no es la última condición, obtén el rango mínimo de la siguiente condición
+        if (condition.ordinal() < Condition.values().length - 1) {
+            minTemp = Condition.values()[condition.ordinal() + 1].getTemperatureRange();
+        } else {
+            // Para la última condición, establece el rango mínimo a un valor arbitrario (por ejemplo, 0)
+            minTemp = 0;
+        }
+
+        // Genera una temperatura aleatoria dentro del rango
+        Random random = new Random();
+        Temp = random.nextInt(maxTemp - minTemp) + minTemp;
+    }
 	public Condition getCondition() {
-		return Condition;
+		return condition;
 	}
 	public void setCondition(Condition condition) {
-		Condition = condition;
+		this.condition = condition;
 	}
 	public int getTemp() {
 		return Temp;

@@ -134,6 +134,8 @@ public void run() {
 		double timelap = 0;
 		overtakes = 0;
 		while (numberLap == 0) { //este while es solamente para sumar el tiempo del inicio
+
+			
 			nexPosition(position,0.5);
 			if (race.getCircuit().getCircuitMap()[position.getRow()][position.getCol()].isStartFinish()) {
 				race.movePlayer(this, overtakes, position.getRow(), position.getCol(),timelap , numberLap);
@@ -154,7 +156,7 @@ public void run() {
 			nexPosition(position,0.5);
 			race.movePlayer(this, overtakes, position.getRow(), position.getCol(),timelap,numberLap);
 			timelap += 0.5;
-
+			race.weatherconditionChange();
 			try {
 				Thread.sleep(500); // Simula 0.5 segundos de acción
 			} catch (InterruptedException e) {
@@ -183,17 +185,33 @@ public position nexPosition(position position, double time){
 	int direction = race.getCircuit().getCircuitMap()[position.getRow()][position.getCol()].getDirection();
 	int moveCell = (int)calculateMove(time) / 46;
 	switch (direction) {
-		case 1:
-			position.setCol(position.getCol() + moveCell); // verificar que no se pase del limite
+		case 1: {
+			if (race.getCircuit().getCircuitMap()[position.getRow()][position.getCol() + moveCell].getType() != 3) {
+				position.setCol(position.getCol() + moveCell); // verificar que no se pase del limite
+			}
+			position.setCol(position.getCol() + moveCell - 1);
+		}
 			break;
-		case 2:
-			position.setRow(position.getRow() + moveCell);
+		case 2: {
+			if (race.getCircuit().getCircuitMap()[position.getRow() + moveCell][position.getCol()].getType() != 3) {
+				position.setRow(position.getRow() + moveCell); // verificar que no se pase del limite
+			}
+			position.setRow(position.getRow() + moveCell - 1);
+		}
 			break;
-		case 3:
-			position.setCol(position.getCol() - moveCell);
+		case 3: {
+			if (race.getCircuit().getCircuitMap()[position.getRow()][position.getCol() - moveCell].getType() != 3) {
+				position.setCol(position.getCol() - moveCell); // verificar que no se pase del limite
+			}
+			position.setCol(position.getCol() - moveCell + 1);
+		}
 			break;
-		case 4:
-		position.setRow(position.getRow() - moveCell);
+		case 4: {
+			if (race.getCircuit().getCircuitMap()[position.getRow() - moveCell][position.getCol()].getType() != 3) {
+				position.setRow(position.getRow() - moveCell); // verificar que no se pase del limite
+			}
+			position.setRow(position.getRow() - moveCell + 1);
+		}
 			break;
 		
 		default:

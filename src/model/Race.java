@@ -7,8 +7,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.text.Position;
+
+import observer.WeatherChangeListener;
+import observer.WeatherObserver;
 
 
 public class Race {
@@ -18,6 +22,9 @@ public class Race {
     private List<Laps> LapsCompetition = new ArrayList<>();
     private List<Player> ListPlayers = new ArrayList<>();
     private List<Weathercondition> listWeathercondition = new ArrayList<>();
+    private List<WeatherObserver> weatherObservers = new ArrayList<>();
+
+
     public static final boolean CONTINUE = true;
 
     public Race(Date date,Circuit circuit, List<Player> ListPlayers){
@@ -25,7 +32,7 @@ public class Race {
         this.date=date;
         this.circuit=circuit;
         this.ListPlayers = ListPlayers;
-        
+        createWeatherConditions();
 
     }
     
@@ -48,7 +55,23 @@ public class Race {
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
     }
+    public void createWeatherConditions() {
+        
 
+        // Obtener todas las condiciones climáticas disponibles
+        Condition[] allConditions = Condition.values();
+
+        // Crear un generador de números aleatorios
+        Random random = new Random();
+
+        // Seleccionar aleatoriamente 3 condiciones climáticas
+        for (int i = 0; i < 3; i++) {
+            int randomIndex = random.nextInt(allConditions.length);
+            Condition randomCondition = allConditions[randomIndex];
+            Weathercondition weathercondition = new Weathercondition(randomCondition);
+            listWeathercondition.add(weathercondition);
+        }
+    }
 
     private synchronized boolean isCellAvailable(int row ,int col){
         return circuit.getCircuitMap()[row][col].isAvailable();
@@ -89,8 +112,18 @@ public class Race {
     private boolean tryOvertake(Player overtakingPlayer ,Player targetPlayer){
     	return overtakingPlayer.calculateVelocity() * (overtakingPlayer.getCar().getOvertakingperformance() + overtakingPlayer.getPilot().getOvertaking() / 2) > targetPlayer.calculateVelocity() * targetPlayer.getPilot().getPositiondefense(); 
     }
+    public void weatherconditionChange(){
+        if (LapsCompetition.size() > 138 && LapsCompetition.size() < 276) {
+            for (int i = 0; i < ListPlayers.size(); i++) {
+                notifyWeatherChangeListeners(listWeathercondition.get(1));
+            }
+        }else if(LapsCompetition.size() > 276){
+            notifyWeatherChangeListeners(listWeathercondition.get(1));
+        }
+    }
 
     private void qualifyingRound(){
+        
         
     }
     
@@ -143,4 +176,14 @@ public class Race {
     public void addLap(Pilot pilot , int overtake , boolean completed , double time, int numberLap){
         LapsCompetition.add(new Laps(new InformationLapsPilot(pilot, overtake, completed, time), numberLap));
     }
+    public void addWeatherObserver(WeatherObserver observer) {
+        weatherObservers.add(observer);
+    }
+
+    private void notifyWeatherChange(Weathercondition newCondition) {
+        for (WeatherObserver observer : weatherObservers) {
+            observer.updateWeather(newCondition);
+        }
+    }
+
 }

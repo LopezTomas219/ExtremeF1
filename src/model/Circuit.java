@@ -2,12 +2,15 @@ package model;
 import java.awt.Image;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.time.LocalTime;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonStructure;
+import javax.json.JsonValue;
 
 
 
@@ -119,35 +122,36 @@ public class Circuit {
 	public void setColFinish(int colFinish) {
 		this.colFinish = colFinish;
 	}
-	public void loadCircuit(String jsonFilePath){
-		try (JsonReader reader = Json.createReader(new FileReader(jsonFilePath))) {
-			JsonObject rootNode = reader.readObject();
-			JsonArray jsonArray = rootNode.getJsonArray("cells");
-	
-			int numRows = jsonArray.size();
-			int numCols = jsonArray.getJsonArray(0).size();
-			this.circuitMap = new CircuitCell[numRows][numCols];
-	
-			for (int i = 0; i < numRows; i++) {
-				JsonArray rowArray = jsonArray.getJsonArray(i);
-				for (int j = 0; j < numCols; j++) {
-					JsonObject cellObject = rowArray.getJsonObject(j);
-					int type = cellObject.getInt("type");
-					int direction = cellObject.getInt("direction");
-					if (type == 4) {
-						rowFinish = i;
-						colFinish = j;
-					}
-					this.circuitMap[i][j] = new CircuitCell(type, direction);
-				}
-			}
-	
-		} catch (IOException e) {
-			e.printStackTrace();
-			
-			
-		}
+	public void loadCircuit(String jsonFilePath) {
+	    try (JsonReader reader = Json.createReader(new FileInputStream(jsonFilePath))) {
+	        JsonArray jsonArray = reader.readArray();
+
+	        int numRows = jsonArray.size();
+	        int numCols = jsonArray.getJsonArray(0).size();
+	        this.circuitMap = new CircuitCell[numRows][numCols];
+
+	        for (int i = 0; i < numRows; i++) {
+	            JsonArray rowArray = jsonArray.getJsonArray(i);
+	            for (int j = 0; j < numCols; j++) {
+	                JsonObject cellObject = rowArray.getJsonObject(j);
+	                int type = cellObject.getInt("type");
+	                int direction = cellObject.getInt("direction");
+	                if (type == 4) {
+	                    rowFinish = i;
+	                    colFinish = j;
+	                }
+	                this.circuitMap[i][j] = new CircuitCell(type, direction);
+	            }
+	        }
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+
+
+
+
 	public void resetPos(int row , int col){
 		circuitMap[row][col].setAvailable(true);
 		circuitMap[row][col].setPlayer(null);

@@ -1,9 +1,10 @@
 package controller;
 
-import java.sql.Date;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -19,12 +20,13 @@ import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import model.*;
+import observer.WeatherObserver;
 import view.BoxPlayer;
 import view.ColorPanel;
 import view.Frame_Create;
 import view.Frame_Init;
 
-public class Championship {
+public class Championship implements WeatherObserver{
     
     
     private List<Pilot> ListPilots = new ArrayList<>();
@@ -107,10 +109,34 @@ public class Championship {
         this.nameGame = nameGame;
     }
     
-    private void createRaces(){
-        //Se crean las carreras usando la lista de circuitos ,con las fechas del cronograma.
+    private void createRaces() {
+        if (ListCircuits == null || ListCircuits.isEmpty()) {
+            throw new IllegalArgumentException("La lista de circuitos no puede ser nula o vacía.");
+        }
+
+        for (Circuit circuit : ListCircuits) {
+            Date currentDate = new Date();
+            Race race = new Race(currentDate, circuit,ListPlayers);
+            race.addWeatherObserver(this);
+            ListRace.add(race);
+        }
     }
+    
    
+    @Override
+    public void updateWeather(Weathercondition newCondition) {
+        
+        if (newCondition.getCondition() == Condition.RAINY) {
+            for (Player player : ListPlayers) {
+                if (player instanceof PlayerSimulator) {
+                    // Ejecutar el método cambiarRuedas en jugadores bots
+                    player.getCar().setTires(new Wet(newCondition));
+                }
+            }
+        }
+        //avisar modificacion en la vista 
+        
+    }
     private void chargeXML(){
         //Carga los pilotos,autos ,circuitos y fechas.
     	// LEE AUTOS
