@@ -14,21 +14,26 @@ public class Weathercondition {
 		randomTemp();
 	}
 	private void randomTemp() {
-        int maxTemp = condition.getTemperatureRange(); // Obtén el rango máximo de temperatura
-        int minTemp;
+	    int maxTemp = condition.getTemperatureRange();
+	    int minTemp;
 
-        // Si no es la última condición, obtén el rango mínimo de la siguiente condición
-        if (condition.ordinal() < Condition.values().length - 1) {
-            minTemp = Condition.values()[condition.ordinal() + 1].getTemperatureRange();
-        } else {
-            // Para la última condición, establece el rango mínimo a un valor arbitrario (por ejemplo, 0)
-            minTemp = 0;
-        }
+	    if (condition.ordinal() < Condition.values().length - 1) {
+	        minTemp = Condition.values()[condition.ordinal() + 1].getTemperatureRange();
+	    } else {
+	        minTemp = 0;
+	    }
 
-        // Genera una temperatura aleatoria dentro del rango
-        Random random = new Random();
-        Temp = random.nextInt(maxTemp - minTemp) + minTemp;
-    }
+	    // Verifica si maxTemp es menor o igual a minTemp
+	    if (maxTemp <= minTemp) {
+	        // Maneja el caso en el que los límites no son válidos (por ejemplo, intercambia los valores o establece un valor predeterminado)
+	        int temp = maxTemp;
+	        maxTemp = minTemp + 1;  // Establece una diferencia mínima de 1
+	        minTemp = temp;
+	    }
+
+	    Random random = new Random();
+	    Temp = random.nextInt(maxTemp - minTemp) + minTemp;
+	}
 	public Condition getCondition() {
 		return condition;
 	}

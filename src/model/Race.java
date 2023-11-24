@@ -11,7 +11,6 @@ import java.util.Random;
 
 import javax.swing.text.Position;
 
-import observer.WeatherChangeListener;
 import observer.WeatherObserver;
 
 
@@ -115,10 +114,10 @@ public class Race {
     public void weatherconditionChange(){
         if (LapsCompetition.size() > 138 && LapsCompetition.size() < 276) {
             for (int i = 0; i < ListPlayers.size(); i++) {
-                notifyWeatherChangeListeners(listWeathercondition.get(1));
+            	 notifyWeatherChange(listWeathercondition.get(1));
             }
         }else if(LapsCompetition.size() > 276){
-            notifyWeatherChangeListeners(listWeathercondition.get(1));
+        	notifyWeatherChange(listWeathercondition.get(1));
         }
     }
 
@@ -179,6 +178,7 @@ public class Race {
     public void addWeatherObserver(WeatherObserver observer) {
         weatherObservers.add(observer);
     }
+    
 
     private void notifyWeatherChange(Weathercondition newCondition) {
         for (WeatherObserver observer : weatherObservers) {

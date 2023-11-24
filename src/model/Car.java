@@ -132,14 +132,6 @@ public class Car implements CarObservable{
 		this.tires = tires;
 	}
 
-	/*public DrivingMode getDrivingmode() {
-		return drivingmode;
-	}
-
-	public void setDrivingmode(DrivingMode drivingmode) {
-		this.drivingmode = drivingmode;
-	}*/
-
 	public int getOvertakingperformance() {
 		return overtakingperformance;
 	}

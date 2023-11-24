@@ -26,6 +26,7 @@ import model.Soft;
 import model.Tires;
 import model.Weathercondition;
 import model.Wet;
+import model.Condition;
 import model.DriveMode;
 
 public class Panel_CustomizeOptions extends JPanel {
@@ -155,7 +156,7 @@ public class Panel_CustomizeOptions extends JPanel {
                 	selectedTires = new Medium();
                 	break;
                 case "Wet":
-                	Weathercondition weathercondition = new Weathercondition(); // este habría que traerlo del circuito o de la carrera y pasarle la condicion climatica y la temperatura
+                	Weathercondition weathercondition = new Weathercondition(Condition.RAINY); 
                 	selectedTires = new Wet(weathercondition);
                 	break;
                 default:
