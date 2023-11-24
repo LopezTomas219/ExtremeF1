@@ -37,6 +37,7 @@ public class Frame_Init extends Frame_Basic{
         int height = (int)(screenSize.height * 0.75);  
         setSize(width, height);
         setLocationRelativeTo(null);
+        panel_Charge.setController(controller);
         setLayout(cardLayout); 
        
         add(panel_Init, "Panel_Init");

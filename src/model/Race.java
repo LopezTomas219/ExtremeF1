@@ -2,6 +2,7 @@ package model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,15 +15,15 @@ import javax.swing.text.Position;
 import observer.WeatherObserver;
 
 
-public class Race {
+public class Race implements Serializable {
     
     private Date date;
     private Circuit circuit;
     private List<Laps> LapsCompetition = new ArrayList<>();
     private List<Player> ListPlayers = new ArrayList<>();
+    private List<Player> PlayerPositions = new ArrayList<>();
     private List<Weathercondition> listWeathercondition = new ArrayList<>();
     private List<WeatherObserver> weatherObservers = new ArrayList<>();
-
 
     public static final boolean CONTINUE = true;
 
@@ -31,6 +32,7 @@ public class Race {
         this.date=date;
         this.circuit=circuit;
         this.ListPlayers = ListPlayers;
+        createPlayersPositions();
         createWeatherConditions();
 
     }
@@ -50,20 +52,24 @@ public class Race {
         return circuit;
     }
 
-
+    
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
+    }
+    public void createPlayersPositions() {
+    	 for (Player player : ListPlayers) {
+             PlayerPositions.add(player);
+         }
+
+    }
+    public List<Player> getPositions(){
+    	return PlayerPositions;
     }
     public void createWeatherConditions() {
         
 
-        // Obtener todas las condiciones climáticas disponibles
         Condition[] allConditions = Condition.values();
-
-        // Crear un generador de números aleatorios
         Random random = new Random();
-
-        // Seleccionar aleatoriamente 3 condiciones climáticas
         for (int i = 0; i < 3; i++) {
             int randomIndex = random.nextInt(allConditions.length);
             Condition randomCondition = allConditions[randomIndex];
@@ -96,16 +102,21 @@ public class Race {
                     player.getPosition().setPosition(row, col); // posicion que adelanto
                     circuit.setPos(player, row, col);
                     circuit.setPos(targetPlayer, row2, col2);
-
+                    
+                 
+                    int indexOvertaking = PlayerPositions.indexOf(player);
+                    int indexTarget = PlayerPositions.indexOf(targetPlayer);
+                    Collections.swap(PlayerPositions, indexOvertaking, indexTarget);
                 }
-            }//else player.reduceSpeed();
+            }
         }
     }
-    
+   
     private synchronized void changePosition(Player player,int overtakes, int row ,int col){
         circuit.resetPos(player.getPosition().getRow(),player.getPosition().getCol());
         circuit.setPos(player, row, col);
         player.getPosition().setPosition(row, col);
+        
     }
 
     private boolean tryOvertake(Player overtakingPlayer ,Player targetPlayer){
@@ -123,9 +134,16 @@ public class Race {
 
     private void qualifyingRound(){
         
-        
+    	for(int i = 0 ; i < PlayerPositions.size(); i++) {
+    	
+    		float timeQualifying = (float) (circuit.getTracklength() / (PlayerPositions.get(i).calculateVelocity() * 1000 / 3600));
+    		PlayerPositions.get(i).setTimeQualifying(timeQualifying);
+    	}
+    	sortPlayersPositions();
     }
-    
+    public void sortPlayersPositions() {
+        Collections.sort(PlayerPositions, (player1, player2) -> Float.compare(player1.getTimeQualifying(), player2.getTimeQualifying()));
+    }
     
     public void goBox(Player player) {
     	
@@ -134,32 +152,39 @@ public class Race {
     
     public void RunRace(){
         List <Thread> playerThreads = new ArrayList<>();
-		for (int numberPlayer = 0; numberPlayer < ListPlayers.size(); numberPlayer++) {
-            Thread playerThread = new Thread(ListPlayers.get(numberPlayer));
+		for (int numberPlayer = 0; numberPlayer < PlayerPositions.size(); numberPlayer++) {
+            Thread playerThread = new Thread(PlayerPositions.get(numberPlayer));
             playerThreads.add(playerThread);
-			ListPlayers.get(numberPlayer).getListRaces().add(this);
-            ListPlayers.get(numberPlayer).setRace(this);
+            PlayerPositions.get(numberPlayer).getListRaces().add(this);
+            PlayerPositions.get(numberPlayer).setRace(this);
             int StartDirection = circuit.getCircuitMap()[circuit.getRowFinish()][circuit.getColFinish()].getDirection() ;
             switch (StartDirection) {
                 case 1:
-                    ListPlayers.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish(),circuit.getColFinish() - numberPlayer - 1 );
+                    PlayerPositions.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish(),circuit.getColFinish() - numberPlayer - 1 );
                     break;
                 case 2:
-                    ListPlayers.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish() + numberPlayer,circuit.getColFinish()); 
+                	PlayerPositions.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish() + numberPlayer,circuit.getColFinish()); 
                     break;
                 case 3:
-                    ListPlayers.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish(),circuit.getColFinish() + numberPlayer );
+                	PlayerPositions.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish(),circuit.getColFinish() + numberPlayer );
                     break;
                 case 4:
-                    ListPlayers.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish() - numberPlayer,circuit.getColFinish()); 
+                	PlayerPositions.get(numberPlayer).getPosition().setPosition(circuit.getRowFinish() - numberPlayer,circuit.getColFinish()); 
                     break;
 
                 default:
                     break;
             }
             playerThread.start();
+            
         }
-
+		 for (Thread playerThread : playerThreads) {
+		        try {
+		            playerThread.join();
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+		    }
     }
     
     public List<Laps>  getLaps(Player player){

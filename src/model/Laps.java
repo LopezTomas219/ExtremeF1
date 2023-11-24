@@ -1,6 +1,8 @@
 package model;
 
-public class Laps {
+import java.io.Serializable;
+
+public class Laps implements Serializable {
     
     private InformationLapsPilot informationLapsPilot;
     private int lapNumber; // número de la vuelta

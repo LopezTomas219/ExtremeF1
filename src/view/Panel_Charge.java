@@ -13,10 +13,13 @@ import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
+import controller.Championship;
+
 public class Panel_Charge extends JPanel {
     
     private Image backgroundImage;
     private NeonRoundedButton btnBack;
+    private Championship controller;
     public Panel_Charge() {
         backgroundImage = new ImageIcon("src/resources/images/Background.png").getImage();
         setLayout(new BorderLayout());
@@ -35,17 +38,17 @@ public class Panel_Charge extends JPanel {
         spacer.setOpaque(false);
         main_Panel.add(spacer);
 
-        // Panel de Botones
+       
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         buttonPanel.setOpaque(false); 
         Dimension btnDimension = new Dimension(120, 60);
-        NeonRoundedButton btnSave1 = new NeonRoundedButton("Partida 1");
+        NeonRoundedButton btnSave1 = new NeonRoundedButton(controller.getFiles().get(0).getName());
         btnSave1.setPreferredSize(btnDimension);
         btnSave1.setNeonColor(Color.decode("#00EF00"));
-        NeonRoundedButton btnSave2 = new NeonRoundedButton("Partida 2");
+        NeonRoundedButton btnSave2 = new NeonRoundedButton(controller.getFiles().get(1).getName());
         btnSave2.setPreferredSize(btnDimension);
         btnSave2.setNeonColor(Color.decode("#00EF00"));
-        NeonRoundedButton btnSave3 = new NeonRoundedButton("Vacio");
+        NeonRoundedButton btnSave3 = new NeonRoundedButton(controller.getFiles().get(2).getName());
         btnSave3.setPreferredSize(btnDimension);
         btnSave3.setNeonColor(Color.decode("#00EF00"));
         buttonPanel.add(btnSave1);
@@ -71,6 +74,13 @@ public class Panel_Charge extends JPanel {
 
         return btnBack;
     }
+	public Championship getController() {
+		return controller;
+	}
+	public void setController(Championship controller) {
+		this.controller = controller;
+	}
+    
 }
    
  

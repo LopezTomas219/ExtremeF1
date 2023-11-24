@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +9,19 @@ import observer.EngineObserver;
 import observer.FuelObserver;
 import observer.TiresObserver;
 
-public class Player implements Comparable<Player> ,Runnable ,FuelObserver , TiresObserver , EngineObserver{
+public class Player implements Comparable<Player> ,Runnable ,FuelObserver , TiresObserver , EngineObserver , Serializable{
 
 private String name;
 private Color color ;
 private Pilot pilot;
 private Car car;
 private Race race;
+private int points;
 private List<Race> ListRaces = new ArrayList<>();
 private float distance;
 private int overtakes;
 private float timeAdd;
+private float TimeQualifying = 0;
 private position position = new position();
 
 
@@ -67,6 +70,14 @@ public void setPilot(Pilot pilot) {
 }
 
 
+public float getTimeQualifying() {
+	return TimeQualifying;
+}
+
+public void setTimeQualifying(float timeQualifying) {
+	TimeQualifying = timeQualifying;
+}
+
 public Car getCar() {
 	return car;
 }
@@ -82,6 +93,30 @@ public Race getRace() {
 
 public void setRace(Race race) {
 	this.race = race;
+}
+
+public int getPoints() {
+	return points;
+}
+
+public void setPoints(int points) {
+	this.points = points;
+}
+
+public int getOvertakes() {
+	return overtakes;
+}
+
+public void setOvertakes(int overtakes) {
+	this.overtakes = overtakes;
+}
+
+public float getTimeAdd() {
+	return timeAdd;
+}
+
+public void setTimeAdd(float timeAdd) {
+	this.timeAdd = timeAdd;
 }
 
 public List<Race> getListRaces() {
@@ -238,6 +273,11 @@ public void tiresWear() {
 @Override
 public void engineWear() {
 	// TODO Auto-generated method stub
+	
+}
+
+public void addPoints(int i) {
+	points += i;
 	
 }
 

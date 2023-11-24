@@ -2,6 +2,7 @@ package model;
 import java.awt.Image;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.FileInputStream;
 import java.time.LocalTime;
 
@@ -14,7 +15,7 @@ import javax.json.JsonValue;
 
 
 
-public class Circuit {
+public class Circuit implements Serializable {
 	
 	private String namecircuit;
 	private Country country;

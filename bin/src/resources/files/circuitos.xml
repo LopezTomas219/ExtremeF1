@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<circuitos>
+  <circuito>
+    <cantVueltas>52</cantVueltas>
+    <infografia>src/resources/images/circuits/silverstone.jpg</infografia>
+    <longitud>5800</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>18</cantCurvas>
+    <recordVueltaRapida>95</recordVueltaRapida>
+    <pais>UK</pais>
+    <nombre>Silverstone Circuit</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>72</cantVueltas>
+    <infografia>src/resources/images/circuits/zandvoort.jpg</infografia>
+    <longitud>4200</longitud>
+    <cantZonasSobrepaso>4</cantZonasSobrepaso>
+    <cantCurvas>14</cantCurvas>
+    <recordVueltaRapida>89</recordVueltaRapida>
+    <pais>NED</pais>
+    <nombre>Circuit Zandvoort</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>53</cantVueltas>
+    <infografia>src/resources/images/circuits/monza.jpg</infografia>
+    <longitud>5300</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>17</cantCurvas>
+    <recordVueltaRapida>94</recordVueltaRapida>
+    <pais>ITA</pais>
+    <nombre>Autodromo Nazionale Monza</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>60</cantVueltas>
+    <infografia>src/resources/images/circuits/monaco.png</infografia>
+    <longitud>4400</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>15</cantCurvas>
+    <recordVueltaRapida>90</recordVueltaRapida>
+    <pais>MON</pais>
+    <nombre>Circuit de Monaco</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>71</cantVueltas>
+    <infografia>src/resources/images/circuits/marinabay.jpg</infografia>
+    <longitud>5300</longitud>
+    <cantZonasSobrepaso>4</cantZonasSobrepaso>
+    <cantCurvas>15</cantCurvas>
+    <recordVueltaRapida>92</recordVueltaRapida>
+    <pais>SIN</pais>
+    <nombre>Marina Bay Street Circuit</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>71</cantVueltas>
+    <infografia>src/resources/images/circuits/sochi.png</infografia>
+    <longitud>4200</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>16</cantCurvas>
+    <recordVueltaRapida>93</recordVueltaRapida>
+    <pais>RUS</pais>
+    <nombre>Sochi Autodrom</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>56</cantVueltas>
+    <infografia>src/resources/images/circuits/redbullring.png</infografia>
+    <longitud>4900</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>13</cantCurvas>
+    <recordVueltaRapida>91</recordVueltaRapida>
+    <pais>AUT</pais>
+    <nombre>Red Bull Ring</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>67</cantVueltas>
+    <infografia>src/resources/images/circuits/hermanosrodriguez.png</infografia>
+    <longitud>5900</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>19</cantCurvas>
+    <recordVueltaRapida>97</recordVueltaRapida>
+    <pais>MEX</pais>
+    <nombre>Autódromo Hermanos Rodríguez</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+  <circuito>
+    <cantVueltas>54</cantVueltas>
+    <infografia>src/resources/images/circuits/americas.png</infografia>
+    <longitud>4600</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>14</cantCurvas>
+    <recordVueltaRapida>88</recordVueltaRapida>
+    <pais>USA</pais>
+    <nombre>Circuit of the Americas</nombre>
+    <map>src/resources/files/circuitMaps/americas.json</map>
+  </circuito>
+</circuitos>

@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Weathercondition {
+public class Weathercondition implements Serializable {
 	
 	private Condition condition; 
 	private int Temp;

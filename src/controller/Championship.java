@@ -4,6 +4,7 @@ package controller;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,11 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import model.*;
 import observer.WeatherObserver;
 import view.BoxPlayer;
@@ -26,7 +32,7 @@ import view.ColorPanel;
 import view.Frame_Create;
 import view.Frame_Init;
 
-public class Championship implements WeatherObserver{
+public class Championship implements WeatherObserver , Serializable{
     
     
     private List<Pilot> ListPilots = new ArrayList<>();
@@ -35,10 +41,11 @@ public class Championship implements WeatherObserver{
     private List<Player> ListPlayers = new ArrayList<>();
     private List<Circuit> ListCircuits = new ArrayList<>();
     private List<Race> ListRace = new ArrayList<>();
-    private List<Date> ListDate = new ArrayList<>();
     private List <Country> ListCountries = new ArrayList<>();
+    private List<File> files = new ArrayList<>();
     private String nameGame;
     private int numberPlayers;
+    private int racesPlayed = 0;
    
     private Frame_Init frame_init;
     private Frame_Create frame_create;
@@ -46,17 +53,20 @@ public class Championship implements WeatherObserver{
 
     public Championship(){
 
-    
-	     //Se crean las ruedas de los autos con su atributo durabilidad !! 
-//	Tires soft = new Soft(30,90);
-//	Tires wet = new Wet(20,85,90);
-//	Tires hard= new Hard(90,40);
-//	Tires medium = new Medium(50,70);
-	
+
     chargeXML();
     createRaces();
     }
-    /*--------------------------------Pilotos-----------------------------------------------------------------------------*/
+    
+    public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
+	
+	/*--------------------------------Pilotos-----------------------------------------------------------------------------*/
     public List<Pilot> getListPilots() {
         return ListPilots;
     }
@@ -93,6 +103,12 @@ public class Championship implements WeatherObserver{
     public void setNumberPlayers(int numberPlayers) {
         this.numberPlayers = numberPlayers;
     }
+    public void setRacesPlayed(int races) {
+    	this.racesPlayed = races;
+    }
+    public int getRacesPlayed() {
+    	return racesPlayed;
+    }
     /*------------------------------------------------Circuitos-------------------------------------------------------------*/
     public List<Circuit> getListCircuits() {
         return ListCircuits;
@@ -121,8 +137,23 @@ public class Championship implements WeatherObserver{
             ListRace.add(race);
         }
     }
+    public void startRace() {
+        sortPlayersByPoints(); 
+        Race currentRace = ListRace.get(racesPlayed); 
+        currentRace.RunRace();
     
-   
+        List<Player> racePositions = currentRace.getPositions();
+        for (int i = 0; i < racePositions.size(); i++) {
+            
+            racePositions.get(i).addPoints(racePositions.size() - i);
+        }
+        racesPlayed++;
+    }
+    public void sortPlayersByPoints() {
+      
+        Comparator<Player> comparator = Comparator.comparingInt(Player::getPoints).reversed();
+        Collections.sort(ListPlayers, comparator);
+    }
     @Override
     public void updateWeather(Weathercondition newCondition) {
         
@@ -342,4 +373,14 @@ public class Championship implements WeatherObserver{
         parent.revalidate();
         parent.repaint();
     }
+    public void serializar() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(nameGame + ".ser"))) {
+            outputStream.writeObject(this);
+            System.out.println("Objeto serializado exitosamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
